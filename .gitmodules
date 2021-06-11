@@ -1,0 +1,3 @@
+[submodule "server/sousei"]
+	path = server/sousei
+	url = https://github.com/pacificbelt30/sousei
