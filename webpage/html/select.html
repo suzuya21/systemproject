@@ -23,6 +23,8 @@
             </header>
 
             <main>
+
+                <!--データ閲覧ページと時間設定ページに飛ばないようにする-->
                 <script>
                     'user strict'
                     function OnLinkClick(){
@@ -34,6 +36,7 @@
                 <div id="output">
                 </div>
 
+                <!--講義選択の表-->
                 <table border="1" id="lecture">
                     <thead>
                         <tr>
@@ -43,7 +46,8 @@
                         </tr>
                     </thead>
                 </table>
-
+                
+                <!--行数を変動させるスクリプト-->
                 <script>
                     var num = [1, 2, 3, 4]
                     let table = document.getElementById('lecture');
