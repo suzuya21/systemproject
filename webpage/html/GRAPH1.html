@@ -1,0 +1,68 @@
+<html>
+
+<head><title>出席表</title></head>
+
+<body>
+
+
+
+<table border="1" id="targetTable">
+<tr>
+    <th></th><th></th><th colspan="15">講義回</th><th colspan="2">累計</th>
+</tr>
+<tr>
+    <th>学籍番号</th><th width="100">名前</th>
+    
+    <th width="25">1</th>
+    <th width="25">2</th>
+    <th width="25">3</th>
+    <th width="25">4</th>
+    <th width="25">5</th>
+    <th width="25">6</th>
+    <th width="25">7</th>
+    <th width="25">8</th>
+    <th width="25">9</th>
+    <th width="25">10</th>
+    <th width="25">11</th>
+    <th width="25">12</th>
+    <th width="25">13</th>
+    <th width="25">14</th>
+    <th width="25">15</th>
+    <th width="25">出席</th>
+    <th width="25">欠席</th>
+</tr>
+
+
+<script>
+    for(i=0;i<50;i++)
+    {
+        let table = document.getElementById('targetTable');
+        let newRow = table.insertRow();
+            
+        let newCell = newRow.insertCell();
+        let newText = document.createTextNode('B21P010');
+        newCell.appendChild(newText);
+            
+        newCell = newRow.insertCell();
+        newText = document.createTextNode('工藤');
+        newCell.appendChild(newText);
+
+        for(j=0;j<17;j++)
+        {
+            newCell = newRow.insertCell();
+            newText = document.createTextNode('💀');
+            newCell.appendChild(newText);
+        }
+    }
+        
+        
+</script>
+
+
+
+
+</table>
+
+</body>
+
+</html>
