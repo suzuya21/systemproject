@@ -1,18 +1,23 @@
 import csv
 import time_compare
 from enum import Enum,auto
+
+# 出席状況の列挙
 class AttendIdent(Enum):
-    Already = auto()
-    Attendance = auto()
-    Late = auto()
-    Absence = auto()
-    NotARisyusya = auto()
+    Already = auto() # すでにチェック済み
+    Attendance = auto() # 出席
+    Late = auto() # 遅刻
+    Absence = auto() # 欠席
+    NotARisyusya = auto() # 履修者ではない
 
 
+# 出席管理クラス
+"""
+"""
 class AttendanceManagement():
     def __init__(self,kamoku,kaisu):
-        self.kamoku = kamoku
-        self.kaisu = kaisu
+        self.kamoku = kamoku # 科目ID
+        self.kaisu = kaisu # 回数
         self.risyu_number = 0 # 履修者数
         self.last_idm = 0 # 最後に入力されたIDm
         self.idm_list = [] # 入力されたIDmのリスト
@@ -40,20 +45,20 @@ class AttendanceManagement():
         else:syukketu = AttendIdent.NotARisyusya
         return syukketu
 
-    # 重複チェック
+    # 重複チェック 重複する場合True,しないとFalse
     def is_duplication(self,idm:str) -> bool:
         for s in self.idm_list:
             if s == idm:
                 return True
         return False
 
-    # 履修者リストの中に存在するidmかチェック
+    # 履修者リストの中に存在するidmかチェック 履修者の場合True,履修者でない場合False
     def is_effective_idm(self,idm:str) -> bool:
         if idm in self.risyu_list:
             return True
         return False
 
-    # 履修者リスト取得
+    # 履修者リスト取得 ここはどういうフォーマットなのかしらない
     def get_risyu_list(self,filename):
         self.risyu_list = dict()
         header = ['number','name','kana','seibetu','idm'] # 履修者リストcsvのヘッダ(適宜書き換えて)
@@ -61,7 +66,7 @@ class AttendanceManagement():
         try:
             with open(filename,'r',encoding='utf-8') as f:
                 reader = csv.DictReader(f,header)
-                next(reader)
+                next(reader) # ヘッダを飛ばす
                 for csvdata in reader:
                     self.risyu_number = self.risyu_number + 1
                     self.risyu_list[csvdata['idm']] = dict()
@@ -72,7 +77,7 @@ class AttendanceManagement():
             traceback.print_exc()
         #print(self.risyu_list)
 
-    # 書き出し
+    # 書き出し ここもフォーマットを知らない
     def write_syusseki(self,idm,syukketu):
         filename = str(self.kamoku)+'_'+str(self.kaisu)+'.csv'
         print(filename)

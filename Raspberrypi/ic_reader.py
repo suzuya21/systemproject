@@ -7,16 +7,16 @@ val = ICReader()
 val.on_connect(func)
 val.start()
 """
-# カードリーダ部分
+# カードリーダ読み取り部分
 class ICReader(threading.Thread):
     def __init__(self,widget):
         #super(ICReader,self).__init__()
         threading.Thread.__init__(self)
         self.event = threading.Event()
-        self.setDaemon(True)
-        self.last_idm = 12 # 直近のIDm
+        self.setDaemon(True) # 
+        self.last_idm = '' # 直近のIDm
         self.checked_idm_list = list() # チェック済みIDmリスト
-        self.func = lambda :0
+        self.func = lambda :0 # 読み取り時実行関数
         #self.wm = mainwindow.gameWidget
         self.wm = widget
 
@@ -32,6 +32,7 @@ class ICReader(threading.Thread):
 
     # 読み取り
     def read_id(self):
+        # この2行でinputを実行する前の入力をカットできる
         from termios import tcflush, TCIFLUSH
         tcflush(sys.stdin, TCIFLUSH)
         return input()
@@ -46,20 +47,12 @@ class ICReader(threading.Thread):
     # 読み取りループ
     def readerloop(self):
         while True:
-            print("入力開始")
-            self.idm = self.read_id()
-            self.func(self.idm)
-            print("入力終了")
-            self.event.wait()
+            print("DEBUG_入力開始")
+            self.idm = self.read_id() # 読み取り開始
+            self.func(self.idm) # 読み取ったidmを引数に実行
+            print("DEBUG_入力終了")
+            self.event.wait() # threadストップ
             self.event.clear()
-            continue
-            # IDmの重複チェック
-            if not self.is_duplicated_idm(self.idm):
-                self.checked_idm_list.append(self.idm)
-                self.wm.readidm.emit(self.idm)
-            else:
-                self.wm.readidm.emit(self.idm+"はすでにかざしてらっしゃる")
-                #self.wm.update_text(self.idm+"はすでにかざしてらっしゃる")
 
     # 実行関数登録
     def on_connect(self,func):
@@ -75,7 +68,7 @@ class ICReader(threading.Thread):
                 print(id)
                 return id
    
-    # 例外を起こすことで強制的にスレッドを止める
+    # 例外を起こすことで強制的にスレッドを止める 今のところ止まらない
     def raise_exception(self):
         thread_id = self.get_id()
         res = ctypes.pythonapi.PyThreadState_SetAsyncExc(thread_id,\
@@ -84,3 +77,4 @@ class ICReader(threading.Thread):
         if res > 1:
             ctypes.pythonapi.PyThreadState_SetAsyncExc(thread_id, 0)
             print('Exception raise failure')
+

@@ -21,17 +21,13 @@ class MainWindow(QMainWindow):
         self.status = QStatusBar()
         self.setStatusBar(self.status)
         self.start_widget = StartWidget()
-        self.common = TestWidget()
-        self.ddd = QPushButton()
-        #self.ddd.setGeometry(100,100,100,100)
+        #self.common = TestWidget()
         self.setCentralWidget(self.start_widget)
         #self.setCentralWidget(self.common)
         self.start_widget.changeWidget.connect(lambda x,y:self.change(x,y))
-        #self.setCentralWidget(self.dwnwidget)
-        #self.setCentralWidget(self.idmLabel)
 
+    # 出席状況表示用ウィジェットに切り替え
     @Slot(str,int)
-    # widgetListのnum番目に切り替え
     def change(self,kamoku,kaisu):
         try:
             self.gamelikeWidget = GamelikeWidget(kamoku,kaisu)
@@ -44,15 +40,16 @@ class MainWindow(QMainWindow):
             import traceback
             traceback.print_exc()
 
+    # トップページに戻る
     @Slot()
     def return_toppage(self):
-        self.gamelikeWidget = ''
+        self.gamelikeWidget = '' # この時点でGamelikeWidget()は消される，しかし並列処理しているのIC読み取り部分は止まらない
         self.start_widget = StartWidget()
         self.start_widget.changeWidget.connect(lambda x,y:self.change(x,y))
         self.setCentralWidget(self.start_widget)
 
 
-# 共通ウィジェット
+# 共通ウィジェット (使うかもしれないし，多分使わない)
 class CommonWidget(QWidget):
     def __init__(self):
         super().__init__()
@@ -145,20 +142,21 @@ class StartWidget(QWidget):
 
 
 class GamelikeWidget(QWidget):
-    readidm:Signal = Signal(str)
-    returnsignal:Signal = Signal()
+    readidm:Signal = Signal(str) # idmを読み取ったときのsignal
+    returnsignal:Signal = Signal() # 画面をトップページに戻したいときのsignal
     def __init__(self,kamoku,kaisu,parent=None):
         super(GamelikeWidget,self).__init__(parent)
+        # ラズパイ公式7インチタッチパネル 800 x 480 60fps
         self._height = 600
         self._width = 1000
         self.reader = ICReader(self)
-        self.reader.on_connect(self.readidm.emit)
-        self.reader.start()
+        self.reader.on_connect(self.readidm.emit) # 読み取り部分に関数登録
+        self.reader.start() # 読み取り開始
         self.attendance_management = AttendanceManagement(kamoku,kaisu)
         self.attendance_management.get_risyu_list('test.csv')
-        self.risyusya_number = self.attendance_management.risyu_number
-        self.enemyHP = self.attendance_management.risyu_number
-        self.myHP = self.attendance_management.risyu_number
+        self.risyusya_number = self.attendance_management.risyu_number # 履修者の数
+        self.enemyHP = self.attendance_management.risyu_number # HP上限は履修者の数
+        self.myHP = self.attendance_management.risyu_number # HP上限は履修者の数
         self.initUI()
 
     def initUI(self):
@@ -260,7 +258,7 @@ class GamelikeWidget(QWidget):
         # 2秒間だけ表示して元のテキストに戻す
         time.sleep(2)
         self.init_text()
-        print("setしました")
+        print("並列処理再開 on GamelikeWidget.update_text")
         self.reader.event.set()
 
     @Slot()
@@ -280,7 +278,6 @@ class GamelikeWidget(QWidget):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    #ex = DownloadWidget()
     ex = MainWindow()
     #ex = GamelikeWidget()
     ex.show()

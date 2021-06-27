@@ -1,12 +1,14 @@
 import subprocess
 import datetime
 
+# 時間比較用の
 class TimeCompare():
     def __init__(self,start_time,syusseki,tikoku,kesseki):
         self._start_time = list(self.str_to_hour_minute(start_time)) # 09:00 24時間表記 文字列
         self._syusseki_time = 0 # 分
         self._tikoku_time = 0
         self._kesseki_time = 0
+
         self.syusseki_time=syusseki
         self.tikoku_time=tikoku
         self.kesseki_time=kesseki
@@ -50,12 +52,14 @@ class TimeCompare():
         tmp = self.add_time(self._start_time[0],self._start_time[1],0,minute)
         self._kesseki_time = self.int_to_datetime(tmp[0],tmp[1])
 
+    # int型で入力されたhourとminuteをdatetimeオブジェクトに変換する
     # hour,minuteは範囲内の整数
     def int_to_datetime(self,hour,minute):
         now = datetime.datetime.now()
         tmpdate = now.year,now.month,now.day
         return datetime.datetime(tmpdate[0],tmpdate[1],tmpdate[2],hour,minute)
 
+    # 
     # 時間の足し算
     def add_time(self,hour1,minute1,hour2,minute2):
         hour =int( hour1 + hour2 + int((minute1+minute2)/60) )% 24
@@ -66,6 +70,7 @@ class TimeCompare():
     def str_to_hour_minute(self,time):
         return tuple([int(i) for i in time.split(':')])
 
+    # 
     # 出席判定
     def is_syusseki(self):
         print('授業開始時間',self.start_time)
@@ -80,15 +85,17 @@ class TimeCompare():
 
     # 遅刻判定
     def is_tikoku(self):
-        print(self.tikoku_time)
+        print('遅刻終了時間',self.tikoku_time)
+        print('現在時刻',datetime.datetime.now())
         now = datetime.datetime.now()
         if now > self.syusseki_time and now < self.tikoku_time:
             return True
         return False
 
-    # 欠席判定(いらない)
+    # 欠席判定(遅刻の時間をすぎれば自動的に欠席なのでいらない)
     def is_kesseki(self):
-        print(self.kesseki_time)
+        print('欠席開始時間',self.kesseki_time)
+        print('現在時刻',datetime.datetime.now())
         now = datetime.datetime.now()
         if now > self.tikoku_time:
             return True
