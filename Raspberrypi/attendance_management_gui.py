@@ -20,14 +20,12 @@ class MainWindow(QMainWindow):
     def initUI(self):
         self.status = QStatusBar()
         self.setStatusBar(self.status)
-        self.widgetList = [DownloadWidget(),StartWidget(),WaitWidget()]
         self.start_widget = StartWidget()
         self.common = TestWidget()
         self.ddd = QPushButton()
         #self.ddd.setGeometry(100,100,100,100)
         self.setCentralWidget(self.start_widget)
         #self.setCentralWidget(self.common)
-        #self.widgetList[1].changeWidget.connect(lambda :self.change(3))
         self.start_widget.changeWidget.connect(lambda x,y:self.change(x,y))
         #self.setCentralWidget(self.dwnwidget)
         #self.setCentralWidget(self.idmLabel)
@@ -97,96 +95,6 @@ class CommonWidget(QWidget):
             QCoreApplication.quit()
 
 
-class TestWidget(CommonWidget):
-    def __init__(self):
-        super().__init__()
-        self.initUI()
-
-    def initUI(self):
-        super().initUI()
-        self.btn1 = QPushButton("1")
-        self.btn2 = QPushButton("2")
-        self.lb = QLabel("これはテストです")
-        self.lb.setFont(QFont('メイリオ',30,QFont.Bold))
-        self.layout.addWidget(self.lb)
-        self.layout.addWidget(self.btn1)
-        self.layout.addWidget(self.btn2)
-
-class DownloadWidget(QWidget):
-    readidm:Signal = Signal(str)
-    def __init__(self):
-        super().__init__()
-        self.dirpath = './'
-        self.initUI()
-        
-    def initUI(self):
-        self.dir = QDir()
-        self.dirlist = QListWidget()
-        self.dir.setPath(self.dirpath)
-        #self.dir.setFilter(QDir.Dirs | QDir.NoSymLinks) # ディレクトリを表示
-        self.dir.setFilter(QDir.Files) # ファイルを表示
-        self.dir.setSorting(QDir.Name) # 名前ソート
-        self.list = self.dir.entryInfoList() # 
-        self.layout = QHBoxLayout()
-
-        self.idmLabel = QLabel()
-        self.idmLabel.setText("test")
-        self.readidm.connect(lambda x: self.update_label(x))
-        
-
-        # QListWidgetの中身を作成
-        for i in range(len(self.list)):
-            fileinfo = self.list[i]
-            dir_item = QListWidgetItem(fileinfo.fileName(),self.dirlist)
-            #dir_item.setFlags(self.dirlist.flags())
-            #dir_item.setCheckState(Qt.Unchecked)
-        self.dirlist.itemClicked.connect(self.itemClicked) # シグナルスロット結びつけ
-
-        self.kamokucombo = QComboBox()
-        self.kamokucombo.setFixedSize(200,200)
-        self.kamokucombo.addItem('1')
-        self.kamokucombo.addItem('2')
-        self.kamokucombo.addItem('3')
-        self.kamokucombo.addItem('4')
-        self.kamokucombo.addItem('5')
-        self.kamokucombo.addItem('6')
-        self.kamokucombo.addItem('7')
-        self.kamokucombo.addItem('8')
-        self.kamokucombo.addItem('9')
-        self.kamokucombo.addItem('10')
-        self.kamokucombo.addItem('11')
-        self.kamokucombo.addItem('12')
-        self.kamokucombo.addItem('13')
-        self.kamokucombo.addItem('14')
-        self.kamokucombo.addItem('15')
-
-        self.dwnbtn = QPushButton('ダウンロード')
-        self.dwnbtn.setFixedSize(300,300)
-
-        self.layout.addWidget(self.kamokucombo)
-        self.layout.addWidget(self.dwnbtn)
-        self.layout.addWidget(self.idmLabel)
-        self.setLayout(self.layout)
-
-    # アイテムをクリックしたときの処理
-    @Slot()
-    def itemClicked(self):
-        print(self.dirlist.currentItem().text(),'の中身を表示')
-        with open(self.dirpath+self.dirlist.currentItem().text()) as f:
-            text = f.read()
-            print(text)
-
-    @Slot()
-    def download(self):
-        tmp = DownloadRisyu(self.kamokucombo.currentText())
-
-    # ラベルをidmでアップデート
-    @Slot(str)
-    def update_label(self,idm):
-        self.idmLabel.setText(str(idm))
-        self.update()
-        
-
 # 起動時の画面
 class StartWidget(QWidget):
     changeWidget = Signal(str,int)
@@ -234,34 +142,6 @@ class StartWidget(QWidget):
     def emit_clicked(self):
         print(self.kaisu_combo.currentText())
         self.changeWidget.emit(str(self.kamoku_combo.currentText()),int(self.kaisu_combo.currentText()))
-
-
-# カード読み取り待機画面
-class WaitWidget(QWidget):
-    changeWidget = Signal()
-    def __init__(self):
-        super().__init__()
-        self.titleLabel = QLabel("見出し用")
-        self.descLabel = QLabel("説明用")
-        self.exitbtn = QPushButton("x")
-        self.exitbtn.clicked.connect(self.emit_clicked)
-
-    def emit_clicked(self):
-        self.changeWidget.emit()
-
-
-class DownloadRisyu:
-    def __init__(self,kamoku):
-        self.url = 'http://localhost/csv'
-        self.param = {'kamoku':kamoku}
-        self.recieved_json = requests.get(self.url,self.param).json()
-        print(self.recieved_json)
-        self.risyusya_csv = self.recieved_json['csv']
-        self.kamoku = self.recieved_json['kamoku']
-        self.start_syusseki = self.recieved_json['start_syusseki']
-        self.start_tikoku = self.recieved_json['start_tikoku']
-        self.end_uketuke = self.recieved_json['end_uketuke']
-        print(kamoku,self.start_syusseki,self.start_tikoku,self.end_uketuke)
 
 
 class GamelikeWidget(QWidget):
