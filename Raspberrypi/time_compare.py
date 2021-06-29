@@ -54,20 +54,30 @@ class TimeCompare():
 
     # int型で入力されたhourとminuteをdatetimeオブジェクトに変換する
     # hour,minuteは範囲内の整数
-    def int_to_datetime(self,hour,minute):
+    @staticmethod
+    def int_to_datetime(hour,minute):
         now = datetime.datetime.now()
         tmpdate = now.year,now.month,now.day
         return datetime.datetime(tmpdate[0],tmpdate[1],tmpdate[2],hour,minute)
 
+    #  9,10 -> '09:10'
+    @staticmethod
+    def hour_minute_to_str(hour,minute):
+        return str(hour)+':'+str(minute)
+
     # 
     # 時間の足し算
-    def add_time(self,hour1,minute1,hour2,minute2):
-        hour =int( hour1 + hour2 + int((minute1+minute2)/60) )% 24
-        minute = int((minute1+minute2)%60)
+    @staticmethod
+    def add_time(hour1,minute1,hour2,minute2):
+        total_min1 = hour1*60+minute1
+        total_min2 = hour2*60+minute2
+        hour =int((total_min1+total_min2) / 60) % 24
+        minute = int((total_min1+total_min2)%60)
         return hour,minute
 
     # '09:10' -> 9,10
-    def str_to_hour_minute(self,time):
+    @staticmethod
+    def str_to_hour_minute(time):
         return tuple([int(i) for i in time.split(':')])
 
     # 
