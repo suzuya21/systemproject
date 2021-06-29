@@ -5,6 +5,7 @@
         <title>時間設定</title>
         <link rel="stylesheet" href="../css/style.css">
         <link rel="stylesheet" href="../css/nav.css">
+        <link rel="stylesheet" href="time.css">
     </head>
 
     <body>
@@ -22,18 +23,33 @@
         </header>
 
         <main>
-            
-            <!--時間の入力部分-->
-            <div class="time">
-                <p>出席開始時間</p>
-                <input type="time" name="attend" value="08:00" min="00:00" max="23:50" required>
-                <p>遅刻時間</p>
-                <input type="time" name="attend" value="08:30" min="00:00" max="23:50" required>
-                <p>欠席時間</p>
-                <input type="time" name="attend" value="09:00" min="00:00" max="23:50" required>
 
-                <button type="submit">送信</button>
-            </div>   
+            <!--時間の入力部分-->
+            <form id="form">
+                <ul class="time" >    
+                <li class="time_text">出席開始時間：</li>
+                <li><input type="time" name="attend" class="time_form" value="hh:mm" min="00:00" max="23:50" step="600" ></li>
+                </ul>
+
+                <ul class="time">
+                <li class="time_text">遅刻時間：</li>
+                <li><input type="time" name="attend" class="time_form" min="00:00" max="23:50" step="600" ></li>
+                </ul>
+                    
+                <ul class="time">
+                <li class="time_text">欠席時間：</li>
+                <li><input type="time" name="attend" class="time_form" min="00:00" max="23:50" step="600" ></li>
+                </ul>
+            
+                <ul>
+                    <button type="button" class="btn" accesskey="enter">決定</button>
+                </ul> 
+            </form>
+
+            <script>
+                var time =(08,10) ;
+                document.getElementsByClassName('time_form').value 
+            </script>
         </main>
 
         <footer>
