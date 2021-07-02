@@ -6,6 +6,8 @@
         <link rel="stylesheet" href="../css/style.css">
         <link rel="stylesheet" href="../css/nav.css">
         <link rel="stylesheet" href="../css/table.css">
+        <link rel="stylesheet" href="../css/table_filter.css">
+        <script type="text/javascript" src="../javascript/table_filter.js"></script>
     </head>
 
     <body>
@@ -31,11 +33,8 @@
 
                     <!--出席データの表-->
                     <table border="1" id="attend">
-                        <thead>
-                            <tr>
-                                <th></th><th></th><th colspan="15">講義回</th><th colspan="2">累計</th>
-                            </tr>
-                            <tr>
+
+                            <tr class="FilterBtn">
                                 <th id="number">学籍番号</th><th id="name">名前</th>
                                 
                                 <th class="count">1</th>
@@ -56,7 +55,16 @@
                                 <th class="sum">出席</th>
                                 <th class="sum">欠席</th>
                             </tr>
-                        </thead>
+
+                        <tr><td>A001</td><td>田中 実</td><td>40</td><td>男</td><td>東北</td><td>123</td><td>12</td></tr>
+                        <tr><td>A002</td><td>鈴木 茂</td><td>50</td><td>男</td><td>関東</td><td>5,487</td><td>12</td></tr>
+                        <tr><td>A003</td><td>佐藤 和子</td><td>66</td><td>女</td><td></td><td>41</td><td>12</td></tr>
+                        <tr><td>A004</td><td>ＸＸ商事</td><td></td><td>法人</td><td>関東</td><td>1,156</td><td>12</td></tr>
+                        <tr><td>A005</td><td>伊藤 博</td><td>40</td><td>男</td><td>関西</td><td>8</td><td>12</td></tr>
+                        <tr><td>A006</td><td>鈴木 洋子</td><td>36</td><td>女</td><td></td><td>753</td><td>12</td></tr>
+                        <tr><td>A007</td><td>鈴木 幸子</td><td>25</td><td>女</td><td>東北</td><td>45</td><td>12</td></tr>
+                        <tr><td>A008</td><td>田中 博 </td><td>20</td><td>男</td><td>関西</td><td>87</td><td>12</td></tr>
+                        <tr><td>A008</td><td>ＹＹ販売</td><td></td><td>法人</td><td>東海</td><td>2,694</td><td>12</td></tr>
                     </table>
 
                     <!--行数を変動させるスクリプト-->
