@@ -19,6 +19,26 @@ html * {
     list-style: none;
 }
 
+#change_link a:link {
+    color: #0000ee;
+    text-decoration: none;
+}
+
+#change_link a:visited { 
+    color: #551b8c;
+    text-decoration: none;
+}
+
+#change_link a:hover {
+    color: #0000ee;
+    text-decoration:underline;
+}
+
+#change_link a:active {
+    color: #fe0000;
+    text-decoration:underline;
+}
+
 #logout a:link {
     color: #0000ee;
     text-decoration: none;
