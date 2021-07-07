@@ -11,50 +11,60 @@
     <body>
     <div class="wrapper">
         <header class="header">
-            <h1 class="title"><a href="select.html">出席管理</a></h1>
+            <div class="head">
+                <h1 class="title"><a href="select.html">出席管理</a></h1>
+                <!--ユーザーIDとログアウト-->
+                <ul class="logname">
+                <li>ユーザーID：{username}</li>
+                <li><a href="password.html">ログアウト</a></li>
+                </ul>
+                </div>
             <nav class="nav">
                 <ul class="main-nav">
                     <li><a href="select.html">講義選択</a></li>
                     <li><a href="view.html">データ閲覧</a></li>
                     <li><a href="time.html">時間設定</a></li>
-                    <li><a href="password.html">ログアウト</a></li>
                 </ul>
             </nav>
         </header>
 
         <main>
 
+            <div class="lec_name">
+                <h2>{{kamoku}}</h2>
+            </div>
+
             <!--時間の入力部分-->
-            <form id="form">
+            <form id="form" action="{{ url_for('edit.edit_post',kamoku=kamoku) }}" method="POST" enctype="multipart/form-data">
+                <ul class="time">
+                <li class="time_text">講義名：</li>
+                <li><input type="text" name="kamoku" class="time_form" value="{{kamoku}}"></li>
+                </ul>
+
                 <ul class="time" >    
-                <li class="time_text">出席開始時間：</li>
-                <li><input type="time" name="attend" class="time_form" value="hh:mm" min="00:00" max="23:50" step="600" ></li>
+                <li class="time_text">出席猶予時間：</li>
+                <li><input type="text" name="attend" class="time_form" value="{{kisoku['syusseki_gendo']}}"></li>
+                <li class="minute">分間</li>
                 </ul>
 
                 <ul class="time">
-                <li class="time_text">遅刻時間：</li>
-                <li><input type="time" name="attend" class="time_form" min="00:00" max="23:50" step="600" ></li>
+                <li class="time_text">遅刻猶予時間：</li>
+                <li><input type="text" name="late" class="time_form" value="{{kisoku['tikoku_gendo']}}"></li>
+                <li class="minute">分間</li>
                 </ul>
-                    
-                <ul class="time">
-                <li class="time_text">欠席時間：</li>
-                <li><input type="time" name="attend" class="time_form" min="00:00" max="23:50" step="600" ></li>
-                </ul>
-            
+
                 <ul>
                     <button type="button" class="btn" accesskey="enter">決定</button>
                 </ul> 
             </form>
-
-            <script>
-                var time =(08,10) ;
-                document.getElementsByClassName('time_form').value 
-            </script>
+        
         </main>
 
         <footer>
 
         </footer>
+
+
     </div>
     </body>
 </html>
