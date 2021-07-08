@@ -1,3 +1,10 @@
+# 使い方
+"""
+example
+time_compare = TimeCompare('09:00',20,30,50)
+time_compare.is_syusseki() #出席ならTrue,そうでないならFalse 引数なしの場合はマシンの現在時刻との比較
+time_compare.is_syusseki(datetime.time(9,20,10))  # datetime.timeオブジェクトを入れるとその時間との比較となる
+"""
 import subprocess
 import datetime
 
@@ -58,14 +65,14 @@ class TimeCompare():
     def int_to_datetime(hour,minute):
         now = datetime.datetime.now()
         tmpdate = now.year,now.month,now.day
-        return datetime.datetime(tmpdate[0],tmpdate[1],tmpdate[2],hour,minute)
+        return datetime.datetime(tmpdate[0],tmpdate[1],tmpdate[2],hour,minute).time()
 
     #  9,10 -> '09:10'
     @staticmethod
     def hour_minute_to_str(hour,minute):
         return str(hour)+':'+str(minute)
 
-    # 
+    #
     # 時間の足し算
     @staticmethod
     def add_time(hour1,minute1,hour2,minute2):
@@ -80,33 +87,39 @@ class TimeCompare():
     def str_to_hour_minute(time):
         return tuple([int(i) for i in time.split(':')])
 
-    # 
+    #
     # 出席判定
-    def is_syusseki(self):
+    def is_syusseki(self,now=datetime.datetime.now().time()):
         print('授業開始時間',self.start_time)
         print('出席終了時間',self.syusseki_time)
         print('遅刻終了時間',self.tikoku_time)
         print('欠席開始時間',self.kesseki_time)
-        print('現在時刻',datetime.datetime.now())
-        now = datetime.datetime.now()
+        print('現在時刻',now)
+        #now = datetime.datetime.now()
         if now > self.start_time and now < self.syusseki_time:
             return True
         return False
 
     # 遅刻判定
-    def is_tikoku(self):
+    def is_tikoku(self,now=datetime.datetime.now().time()):
         print('遅刻終了時間',self.tikoku_time)
-        print('現在時刻',datetime.datetime.now())
-        now = datetime.datetime.now()
+        print('現在時刻',now)
+        #now = datetime.datetime.now()
         if now > self.syusseki_time and now < self.tikoku_time:
             return True
         return False
 
     # 欠席判定(遅刻の時間をすぎれば自動的に欠席なのでいらない)
-    def is_kesseki(self):
+    def is_kesseki(self,now=datetime.datetime.now().time()):
         print('欠席開始時間',self.kesseki_time)
-        print('現在時刻',datetime.datetime.now())
-        now = datetime.datetime.now()
+        print('現在時刻',now)
+        #now = datetime.datetime.now()
         if now > self.tikoku_time:
             return True
         return False
+    
+if __name__ == '__main__':
+    time_compare = TimeCompare('09:00',20,30,90)
+    print(time_compare.is_syusseki())
+    print(time_compare.is_tikoku())
+    print(time_compare.is_syusseki(datetime.time(9,20,10)))
