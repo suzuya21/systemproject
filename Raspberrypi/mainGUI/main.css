@@ -1,0 +1,44 @@
+#TitleLabel{
+    border-radius:40%;
+    color:black;
+    background-color: white;
+}
+#ReturnBtn{
+    border-radius:30%;
+    color:black;
+    background-color: white;
+}
+#ExitBtn{
+    border-radius:30%;
+    color:white;
+    background-color: black;
+}
+#StartBtn{
+border-radius:20%;
+color:black;
+background-color: white;
+}
+#StartBtn:hover{background-color: red;}
+QComboBox{
+    overflow:hidden;
+    appearance:none;
+    border-radius:30%;
+    padding: 0% 0% 0% 100%;
+    color:black;
+    background-color: white;
+}
+QComboBox::drop-down {border: 0px;}
+QComboBox::down-arrow {
+    image: url(images/arrow.png);
+    padding:0% 50% 0% 0%;
+    width: 200%;
+    height: 200%;
+}
+#ClockWidget{
+border-radius:20%;
+color:black;
+background-color: white;
+}
+#MainWindow{
+background-color:white;
+}
