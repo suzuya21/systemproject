@@ -25,6 +25,7 @@ class MainWindow(QMainWindow):
 
     def initUI(self):
         # self.setStyleSheet('background-color:white;')
+        self.setObjectName('MainWindow')
         self.status = QStatusBar()
         self.setStatusBar(self.status)
         self.start_widget = StartWidget()
