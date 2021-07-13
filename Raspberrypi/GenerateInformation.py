@@ -12,6 +12,7 @@ from operator import itemgetter, attrgetter
 def generate(SubjectID, SThour, STmin, fileIDm):
     SubjectInformation = []
     ReadCsv.readCsv('TestSubject.csv', SubjectInformation)
+    #ReadCsv.readCsv(f'{SubjectID}-Schedule.csv', SubjectInformation)
     print(SubjectInformation)
 
     H = SThour
@@ -43,27 +44,28 @@ def generate(SubjectID, SThour, STmin, fileIDm):
         N = len(DataIDm)
         RD = generate_random_datetimes(Y, M, D, H, m0, mu, sigma, N)
     
-        # DataRDがランダムな時間を格納するリスト
+        #DataRDがランダムな時間を格納するリスト
         DataRD = []
         for j in range(len(RD)):
             YMD = '{:%Y-%m-%d}'.format(RD[j])
             HTS = '{:%X}'.format(RD[j])
             DataRD.append([YMD, HTS])
     
-        # 時間の順にソートする
+        #時間の順にソートする
         DataRD.sort(key=itemgetter(1))
 
-        # シャッフル
+        #シャッフル
         numbers = [j for j in range(len(DataIDm))]
         random.shuffle(numbers)
 
-        # リストにIDmを付加する
+        #リストにIDmを付加する
         for j in range(len(RD)):
             k = numbers[j]
             DataRD[j].append(DataIDm[k][0])
     
-        # ファイルに出力
-        FileOut = f'{SubjectID}/{SubjectID}-{str(Y)}{str(M).zfill(2)}{str(D).zfill(2)}.csv'
+        #ファイルに出力
+        #FileOut = f'{SubjectID}/{SubjectID}-{str(Y)}{str(M).zfill(2)}{str(D).zfill(2)}.csv'
+        FileOut = f'{SubjectID}/{SubjectID}-AttendanceList{i+1}.csv'
         with open(FileOut, 'w', encoding = "utf_8", newline = '') as outfile:
             writer = csv.writer(outfile)
             writer.writerow(header)
@@ -96,8 +98,6 @@ def generate_random_datetimes(Y, M, D, H, m0, mu, sigma, N):
         rand_datetimes.append(rand_datetime)
     return rand_datetimes
 
-'''
 if __name__ == '__main__':
     SubjectID = 'F1'
     generate(SubjectID, 8, 50, os.path.abspath(f'risyu_{SubjectID}.csv'))
-'''
