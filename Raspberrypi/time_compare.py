@@ -123,3 +123,4 @@ if __name__ == '__main__':
     print(time_compare.is_syusseki())
     print(time_compare.is_tikoku())
     print(time_compare.is_syusseki(datetime.time(9,20,10)))
+
