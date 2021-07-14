@@ -1,19 +1,41 @@
-.uploadWindow{
+#uploadWindow{
     background-color: white;
 }
 
-Qlabel{
-    border: solid 1px;
+#title{
+    border-radius: 30%;
+    border: 1px solid black;
 }
 
-Qkougi_combobox{
-    color: white;
+#kougi_combobox{
+    border: 1px solid black;
+    background-color: white;
+    border-radius: 30%;
 }
 
-Qcount_combobox{
-    color: white;
+
+#count_combobox{
+    border: 1px solid black;
+    background-color: white;
+    border-radius: 30%;
 }
 
-Qbtn{
-    color: white;
+#btn{
+    border: 1px solid black ;
+    border-radius:30%;
+    color:black;
+    background-color: white;
+}
+
+#btn:hover{
+    background-color: aliceblue;
+}
+
+QComboBox::drop-down {border: 0px;}
+
+QComboBox::down-arrow {
+    image: url(arrow.png);
+    padding:0% 50% 0% 0%;
+    width: 200%;
+    height: 200%;
 }
