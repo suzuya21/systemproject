@@ -21,6 +21,7 @@ from start_widget import StartWidget
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
+        self.setWindowTitle('出席管理')
         self.initUI()
 
     def initUI(self):
