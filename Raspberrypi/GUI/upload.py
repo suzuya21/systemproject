@@ -19,9 +19,9 @@ class uploadWindow(QWidget):
 
         #タイトル
         self.label = QLabel(self) 
-        self.label.setText("<html>アップロード <img src='upload_icon.png'></html>")  
+        self.label.setText("アップロード")  
         #タイトルの装飾
-        self.label.setFont(QFont('メイリオ',20))
+        self.label.setFont(QFont('メイリオ',25))
         self.label.setAlignment(Qt.AlignCenter)
         self.label.setObjectName('title')
         self.label.setGraphicsEffect(ShadowEffect(self))
