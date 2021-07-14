@@ -1,0 +1,19 @@
+.uploadWindow{
+    background-color: white;
+}
+
+Qlabel{
+    border: solid 1px;
+}
+
+Qkougi_combobox{
+    color: white;
+}
+
+Qcount_combobox{
+    color: white;
+}
+
+Qbtn{
+    color: white;
+}
