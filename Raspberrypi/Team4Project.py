@@ -1,6 +1,6 @@
 #最終変更日７月14日
 #出席管理を行うプログラム
-#SubjectIDに「'科目ID'」を渡す
+#SubjectIDに「'科目ID'」, Countに「'講義回数'」を渡す
 #{SubjectID}_{Count}.csvが作成され, 出席情報が記録される
 
 import ReadCsv
@@ -10,7 +10,7 @@ import GetStudentInfo
 import GetAttendanceInfo
 import os
 
-def AttendanceManagement(SubjectID):
+def AttendanceManagement(SubjectID, Count):
     #履修者データと科目ルールが存在するか確認
     if not os.path.isfile(f'risyu_{SubjectID}.csv'):
         print(f'risyu_{SubjectID}.csv' + 'が存在しません.')
@@ -40,7 +40,7 @@ def AttendanceManagement(SubjectID):
     #print(SubjectRule)
 
     #Countに講義回数を代入
-    Count = SubjectRule[0][0]
+    #Count = SubjectRule[0][0]
 
     #動作確認用
     #Count = 11
@@ -93,10 +93,13 @@ def AttendanceManagement(SubjectID):
             #os.remove(f'{SubjectID}-読み取り履歴{Count}.csv')
             break
 
+    print('終了します.')
+
 #処理が一通り終わった後は読み取り履歴の記録されたファイルを削除してください
-#残ったままだと再度実行したときに, IDがすでに1度入力された状態になっているのでエラーが出ます
+#残ったままだと再度実行したときに, IDがすでに1度入力された状態になっているのでうまく動作しません
 #もしくは93行のコメントアウトを外してください
 if __name__ == '__main__':
-    #科目IDを設定
+    #科目ID, 講義回数を設定
     SID = 'F1'
-    AttendanceManagement(SID)
+    Count = '1'
+    AttendanceManagement(SID, Count)
