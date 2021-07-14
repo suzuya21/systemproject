@@ -96,7 +96,8 @@ class TimeCompare():
         print('欠席開始時間',self.kesseki_time)
         print('現在時刻',now)
         #now = datetime.datetime.now()
-        if now > self.start_time and now < self.syusseki_time:
+        #if now > self.start_time and now < self.syusseki_time:
+        if now < self.syusseki_time:
             return True
         return False
 

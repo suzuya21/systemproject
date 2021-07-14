@@ -68,13 +68,22 @@ def AttendanceManagement(SubjectID, Count):
     i = 0
     while True:
         ID = GetInfo[i][2]
+        # すでに登録されている場合Noneが返されるため数行後のappendで例外が起こる
         SInfo = GetStudentInfo.GSInfo(ID, Registerlist, SubjectID, Count)
+        if SInfo is None:
+            input('すでに登録されています')
+            i += 1
+            continue
+
         #print(SInfo)
         #print('名前：' + SInfo[1] + '　学籍番号：' + SInfo[2])
 
         Time = GetInfo[i][1]
+        # elseがないので条件に引っかからない場合は戻り値がない，Noneなのでこの変数を使用する部分で例外が起こる
         AInfo = GetAttendanceInfo.GAInfo(Time, SubjectRule, SG, TG)
+        print(AInfo)
 
+        print(SInfo)
         SInfo.append(AInfo)
         
         #名前と学籍番号, 出席状況を表示できます
@@ -85,14 +94,15 @@ def AttendanceManagement(SubjectID, Count):
 
         i += 1
 
-        os.system('PAUSE')
+        #os.system('PAUSE')
+        input('続行するには何かキーを押してください')
 
         #終了処理
         #GUIの構成に合わせて変更してください
         if i > 99:
-            #os.remove(f'{SubjectID}-読み取り履歴{Count}.csv')
             break
 
+    os.remove(f'{SubjectID}-読み取り履歴{Count}.csv')
     print('終了します.')
 
 #処理が一通り終わった後は読み取り履歴の記録されたファイルを削除してください
@@ -100,6 +110,6 @@ def AttendanceManagement(SubjectID, Count):
 #もしくは93行のコメントアウトを外してください
 if __name__ == '__main__':
     #科目ID, 講義回数を設定
-    SID = 'F1'
+    SID = 'F2'
     Count = '1'
     AttendanceManagement(SID, Count)

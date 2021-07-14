@@ -24,11 +24,12 @@ def GAInfo(CurrentTime, SubjectRule, SG, TG):
     elif T.is_tikoku(time_compare.datetime.time(int(PP[0]), int(PP[1]), int(PP[2]))) == True:
         return '遅刻'
     #print(T.is_kesseki(time_compare.datetime.time(int(PP[0]), int(PP[1]), int(PP[2]))))
-    elif T.is_kesseki(time_compare.datetime.time(int(PP[0]), int(PP[1]), int(PP[2]))) == True:
+    #elif T.is_kesseki(time_compare.datetime.time(int(PP[0]), int(PP[1]), int(PP[2]))) == True:
+    else:
         return '欠席'
 
 if __name__ == '__main__':
-    RulePath = os.path.abspath('kisoku_F1.csv')
+    RulePath = os.path.abspath('kisoku_F2.csv')
     SubjectRule = []
     ReadCsv.readCsv(RulePath, SubjectRule)
 

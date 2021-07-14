@@ -2,6 +2,7 @@
 #IDデータを作成するプログラム
 #SubjectIDに「'科目ID'」, SThourに「開始時刻(時)」,　STminに「開始時刻(分)」, fileIDmに「履修者データ」を渡す
 #15回分のIDデータが作成される
+import SplitCharacter
 import ReadCsv
 import os
 import random
@@ -9,14 +10,11 @@ from datetime import datetime
 import csv
 from operator import itemgetter, attrgetter
 
-def generate(SubjectID, SThour, STmin, fileIDm):
+def generate(SubjectID, fileKisoku, fileIDm):
     SubjectInformation = []
     ReadCsv.readCsv('TestSubject.csv', SubjectInformation)
     #ReadCsv.readCsv(f'{SubjectID}-Schedule.csv', SubjectInformation)
     print(SubjectInformation)
-
-    H = SThour
-    m0 = STmin
 
     #講義回ごとの正規分布の平均(mus)と標準偏差(sigmas)
     mus = [3, 5, 5, 7, 9, 10, 10, 10, 10, 10, 12, 10, 11, 8, 7]
@@ -24,7 +22,12 @@ def generate(SubjectID, SThour, STmin, fileIDm):
 
     DataIDm = []
     ReadCsv.readCsv(fileIDm, DataIDm)
+    DataKisoku = []
+    ReadCsv.readCsv(fileKisoku, DataKisoku)
     print(DataIDm)
+    print(DataKisoku)
+    H = int(SplitCharacter.split(DataKisoku[0][1])[0])
+    m0 = int(SplitCharacter.split(DataKisoku[0][1])[1])
 
     #データを出力するディレクトリがなければ作成 
     os.makedirs(SubjectID, exist_ok=True)
@@ -99,5 +102,6 @@ def generate_random_datetimes(Y, M, D, H, m0, mu, sigma, N):
     return rand_datetimes
 
 if __name__ == '__main__':
-    SubjectID = 'F1'
-    generate(SubjectID, 8, 50, os.path.abspath(f'risyu_{SubjectID}.csv'))
+    SubjectID = 'F2'
+    generate(SubjectID, os.path.abspath(f'kisoku_{SubjectID}.csv'), os.path.abspath(f'risyu_{SubjectID}.csv'))
+

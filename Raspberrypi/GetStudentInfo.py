@@ -22,7 +22,7 @@ def GSInfo(ID, Registerlist, SubjectID, Count):
     
     #{Team4Project.SubjectID}-読み取り履歴{Team4Project.Count}.csvがなければ作成
     if not os.path.isfile(f'{SubjectID}-読み取り履歴{Count}.csv'):
-        #print('ファイルを作成します.')
+        print('ファイルを作成します.')
         f = open(f'{SubjectID}-読み取り履歴{Count}.csv', 'w', encoding = "utf_8", newline = '')
         f.close
     
