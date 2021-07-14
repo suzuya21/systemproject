@@ -21,6 +21,7 @@ from start_widget import StartWidget
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
+        self.setWindowTitle('出席管理')
         self.initUI()
 
     def initUI(self):
@@ -119,7 +120,7 @@ class MainWidget(QWidget):
         self.exit_btn.setObjectName('ExitBtn')
         # self.exit_btn.setStyleSheet("border-radius:30%;color:white;background-color: black;")
         self.exit_btn.setFont(QFont("メイリオ",20))
-        self.exit_btn.clicked.connect(lambda :(self.name_label.setText("スズキイチロウタロウジロウ"),self.syusseki_label.setText("欠席")))
+        self.exit_btn.clicked.connect(lambda :(self.name_label.setText("スズキイチロウタロ\nウジロウ"),self.syusseki_label.setText("欠席")))
         # スタートボタン
         self.btn = QPushButton("授業開始")
         self.btn.clicked.connect(self.emit_clicked)
@@ -128,7 +129,7 @@ class MainWidget(QWidget):
         self.btn.setStyleSheet(btn_css)
         self.btn.setGraphicsEffect(ShadowEffect(self))
         # 科目コンボボックス
-        self.kamoku = ['F1','F2','F3','F4','F5','M1','M2','M3','M4','M5']
+        self.kamoku = ['F1','F2','F3','F4','F5','M1','M2','M3','M4','M5','s2','s3','s4','s5','m1','m2','l3','m4','m5']
         self.kamoku_combo = QComboBox()
         self.kamoku_combo.setFont(QFont('メイリオ',20))
         self.kamoku_combo.setFixedSize(200,130)
@@ -210,6 +211,7 @@ class MainWidget(QWidget):
     # 初期テキスト
     def init_text(self):
         self.name_label.setText('待機中')
+        self.name_label.setFont(QFont('メイリオ',30))
         self.syusseki_label.setText('')
         self.uketuke = True
         print('init_text')
@@ -236,8 +238,10 @@ class MainWidget(QWidget):
         # 表示中にスキャンできないようにフラグを用意する
         if self.uketuke:
             self.uketuke = False
-            self.name_label.setText('伊集院長谷川')
-            self.syusseki_label.setText('遅刻')
+            self.name_label.setFont(QFont('メイリオ',14))
+            self.name_label.setText('履修者として\n登録されていません')
+            self.syusseki_label.setText('エラー')
+            # self.name_label.setFont(QFont('メイリオ',30))
             # time.sleep(2)
             QTimer.singleShot(2000, self.init_text) # 二秒後に行う処理を書く
             # self.init_text()
