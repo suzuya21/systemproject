@@ -4,7 +4,7 @@ import os
 from PySide2.QtWidgets import *
 from PySide2.QtGui import *
 from PySide2.QtCore import *
-#from tusin import post
+from tusin import post
 from shadow_effect import ShadowEffect
 
 
@@ -49,10 +49,10 @@ class uploadWindow(QWidget):
         #アップロードボタンを追加
         self.btn = QPushButton("ダウンロード")
         #ファイル選択のダイアログが表示される
-        self.btn.clicked.connect(self.getfile)
+        #self.btn.clicked.connect(self.getfile)
 
         #コンボボックスから参照してファイルをアップロードする
-        #self.btn.clicked.connect(self.upload_risyusya_list)
+        self.btn.clicked.connect(self.upload_risyusya_list)
 
         #アップロードボタンの装飾
         self.btn.setFixedSize(300,80)
@@ -61,7 +61,7 @@ class uploadWindow(QWidget):
         self.btn.setGraphicsEffect(ShadowEffect(self))
         self.btn.setSizePolicy(QSizePolicy.Preferred,QSizePolicy.Preferred)
 
-        self.le = QLabel("Hello")
+        #self.le = QLabel("Hello")
 
         #レイアウト
         self.main_layout = QVBoxLayout()
@@ -88,12 +88,13 @@ class uploadWindow(QWidget):
 
 
 
-    #ファイル選択ダイアログを表示
+    """#ファイル選択ダイアログを表示
     def getfile(self):
         fname = QFileDialog.getOpenFileName(self, 'Open file', 'c:\\',"CSV files (*.csv)")
         self.le.setPixmap(QPixmap(fname))
+    """
 
-    """ #コンボボックスから参照してファイルをアップロードする
+    #コンボボックスから参照してファイルをアップロードする
     def upload_risyusya_list(self):
         flag = True
         self.post()
@@ -101,7 +102,6 @@ class uploadWindow(QWidget):
         # ダウンロード成功時の処理
         if flag:
             res = QMessageBox.information(self, 'ダウンロード完了', '履修者リストのダウンロードが成功しました',QMessageBox.Ok)
-    """
 
 # アプリの実行と終了
 if __name__ == '__main__':
