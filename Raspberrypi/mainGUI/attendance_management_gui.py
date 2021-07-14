@@ -211,6 +211,7 @@ class MainWidget(QWidget):
     # 初期テキスト
     def init_text(self):
         self.name_label.setText('待機中')
+        self.name_label.setFont(QFont('メイリオ',30))
         self.syusseki_label.setText('')
         self.uketuke = True
         print('init_text')
@@ -237,8 +238,10 @@ class MainWidget(QWidget):
         # 表示中にスキャンできないようにフラグを用意する
         if self.uketuke:
             self.uketuke = False
-            self.name_label.setText('伊集院長谷川')
-            self.syusseki_label.setText('遅刻')
+            self.name_label.setFont(QFont('メイリオ',14))
+            self.name_label.setText('履修者として\n登録されていません')
+            self.syusseki_label.setText('エラー')
+            # self.name_label.setFont(QFont('メイリオ',30))
             # time.sleep(2)
             QTimer.singleShot(2000, self.init_text) # 二秒後に行う処理を書く
             # self.init_text()
