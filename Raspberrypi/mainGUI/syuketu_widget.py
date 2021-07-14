@@ -2,7 +2,8 @@ from PySide2.QtWidgets import *
 from PySide2.QtGui import *
 from PySide2.QtCore import *
 from shadow_effect import ShadowEffect
-# 出席,遅刻,欠席とか表示されるラベル
+
+# 出席,遅刻,欠席とか出欠状況が表示されるラベル
 class SyussekiWidget(QLabel):
     def __init__(self):
         super(SyussekiWidget, self).__init__()

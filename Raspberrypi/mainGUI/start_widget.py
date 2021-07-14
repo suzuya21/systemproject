@@ -3,6 +3,7 @@ from PySide2.QtGui import *
 from PySide2.QtCore import *
 from shadow_effect import ShadowEffect
 
+# 科目と回数を選択する画面 attendance_manegement_gui.pyを実行して最初に表示される
 class StartWidget(QWidget):
     clicked_signal = Signal(str,str)
     def __init__(self):
