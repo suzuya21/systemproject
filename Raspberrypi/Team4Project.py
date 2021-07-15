@@ -70,11 +70,12 @@ def AttendanceManagement(SubjectID, Count):
         ID = GetInfo[i][2]
         # すでに登録されている場合Noneが返されるため数行後のappendで例外が起こる
         SInfo = GetStudentInfo.GSInfo(ID, Registerlist, SubjectID, Count)
-        if SInfo is None:
-            input('すでに登録されています')
+        #すでに登録されていたIDもしくは履修者ではないIDが読み込まれたときの処理
+        if SInfo == False:
             i += 1
+            #os.system('PAUSE')
+            input("SInfo is None")
             continue
-
         #print(SInfo)
         #print('名前：' + SInfo[1] + '　学籍番号：' + SInfo[2])
 

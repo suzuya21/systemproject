@@ -18,7 +18,7 @@ def GSInfo(ID, Registerlist, SubjectID, Count):
     if STInfo == []:
         print('あなたは履修者ではありません.')
         #終了
-        return
+        return False
     
     #{Team4Project.SubjectID}-読み取り履歴{Team4Project.Count}.csvがなければ作成
     if not os.path.isfile(f'{SubjectID}-読み取り履歴{Count}.csv'):
@@ -41,7 +41,7 @@ def GSInfo(ID, Registerlist, SubjectID, Count):
         for j in i:
             if ID == j:
                 print('あなたはすでに登録済みです.')
-                return
+                return False
 
     #print(H)
 
@@ -65,6 +65,6 @@ if __name__ == '__main__':
     print(GSInfo('012E44A7A5188331', Registerlist, 'F1', '11'))
     print(GSInfo('012E44A7A518BB99', Registerlist, 'F1', '11'))
     #1回目と同じID
-    GSInfo('012E44A7A5112853', Registerlist, 'F1', '11')
+    print(GSInfo('012E44A7A5112853', Registerlist, 'F1', '11'))
     #履修者ではないID
-    GSInfo('0000000000000000', Registerlist, 'F1', '11')
+    print(GSInfo('0000000000000000', Registerlist, 'F1', '11'))
