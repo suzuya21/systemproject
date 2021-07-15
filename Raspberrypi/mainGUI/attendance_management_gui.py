@@ -99,6 +99,8 @@ class MainWidget(QWidget):
         self.name_label.setGraphicsEffect(ShadowEffect(self))
         self.name_label.setMargin(20)
         self.name_label.setSizePolicy(QSizePolicy.Preferred,QSizePolicy.Preferred)
+        self.name_label.setWordWrap(True)
+        # self.name_label.setSizePolicy(QSizePolicy.Preferred,QSizePolicy.Preferred)
         # 出席ラベル
         self.syusseki_label = SyussekiWidget()
         self.syusseki_label.setText('')
@@ -238,8 +240,8 @@ class MainWidget(QWidget):
         # 表示中にスキャンできないようにフラグを用意する
         if self.uketuke:
             self.uketuke = False
-            self.name_label.setFont(QFont('メイリオ',14))
-            self.name_label.setText('履修者として\n登録されていません')
+            self.name_label.setFont(QFont('メイリオ',15))
+            self.name_label.setText('履修者として登録されていません')
             self.syusseki_label.setText('エラー')
             # self.name_label.setFont(QFont('メイリオ',30))
             # time.sleep(2)
