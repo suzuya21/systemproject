@@ -69,6 +69,11 @@ def AttendanceManagement(SubjectID, Count):
     while True:
         ID = GetInfo[i][2]
         SInfo = GetStudentInfo.GSInfo(ID, Registerlist, SubjectID, Count)
+        #すでに登録されていたIDもしくは履修者ではないIDが読み込まれたときの処理
+        if SInfo == False:
+            i += 1
+            os.system('PAUSE')
+            continue
         #print(SInfo)
         #print('名前：' + SInfo[1] + '　学籍番号：' + SInfo[2])
 
@@ -84,7 +89,6 @@ def AttendanceManagement(SubjectID, Count):
         WriteCsv.write(SInfo, SubjectID, Count)
 
         i += 1
-
         os.system('PAUSE')
 
         #終了処理
