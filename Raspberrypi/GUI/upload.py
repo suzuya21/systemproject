@@ -47,7 +47,7 @@ class uploadWindow(QWidget):
         self.count_combobox.addItems(['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15'])
 
         #アップロードボタンを追加
-        self.btn = QPushButton("ダウンロード")
+        self.btn = QPushButton("アップロード")
         #ファイル選択のダイアログが表示される
         #self.btn.clicked.connect(self.getfile)
 
