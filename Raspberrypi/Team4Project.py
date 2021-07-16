@@ -67,6 +67,9 @@ def AttendanceManagement(SubjectID, Count):
 
     i = 0
     while True:
+        #os.system('PAUSE')
+        input('続行するには何かキーを押してください')
+
         ID = GetInfo[i][2]
         # すでに登録されている場合Noneが返されるため数行後のappendで例外が起こる
         SInfo = GetStudentInfo.GSInfo(ID, Registerlist, SubjectID, Count)
@@ -88,15 +91,16 @@ def AttendanceManagement(SubjectID, Count):
         SInfo.append(AInfo)
         
         #名前と学籍番号, 出席状況を表示できます
-        print('名前：' + SInfo[1] + '　学籍番号：' + SInfo[2] + ' ' + SInfo[3])
+        print('名前：' + SInfo[1] + ' 学籍番号：' + SInfo[2] + ' ' + SInfo[3])
 
         #{SubjectID}_{Count}.csvに書き込み
         WriteCsv.write(SInfo, SubjectID, Count)
 
         i += 1
 
-        #os.system('PAUSE')
-        input('続行するには何かキーを押してください')
+        # イベント発火
+        # ここに発火させる
+        # event.wait() 
 
         #終了処理
         #GUIの構成に合わせて変更してください
