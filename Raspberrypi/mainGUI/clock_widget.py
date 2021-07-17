@@ -4,6 +4,7 @@ from PySide2.QtCore import *
 import datetime
 from shadow_effect import ShadowEffect
 
+# 時計ウィジェット
 class ClockWidget(QLabel):
     def __init__(self,fontsize=30,height=100,width=300):
         super(ClockWidget, self).__init__()

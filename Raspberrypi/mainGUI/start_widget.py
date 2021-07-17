@@ -3,6 +3,7 @@ from PySide2.QtGui import *
 from PySide2.QtCore import *
 from shadow_effect import ShadowEffect
 
+# 科目と回数を選択する画面 attendance_manegement_gui.pyを実行して最初に表示される
 class StartWidget(QWidget):
     clicked_signal = Signal(str,str)
     def __init__(self):
@@ -20,7 +21,7 @@ class StartWidget(QWidget):
         self.title_label.setSizePolicy(QSizePolicy.Preferred,QSizePolicy.Preferred)
 
         # 科目コンボボックス
-        self.kamoku = ['F1','F2','F3','F4','F5','M1','M2','M3','M4','M5','W2']
+        self.kamoku = ['F1','F2','F3','F4','F5','M1','M2','M3','M4','M5','W2','F2','F3','F4','F5','M1','M2','M3','M4','M5','W2']
         self.kamoku_combo = QComboBox()
         self.kamoku_combo.setFont(QFont('メイリオ',20))
         # self.kamoku_combo.setFixedSize(200,130)

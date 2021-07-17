@@ -21,6 +21,7 @@ from start_widget import StartWidget
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
+        self.setWindowTitle('出席管理')
         self.initUI()
 
     def initUI(self):
@@ -48,7 +49,8 @@ class MainWindow(QMainWindow):
     @Slot(str,int)
     def change(self,kamoku,kaisu):
         try:
-            self.main = MainWidget()
+            self.main = MainWidget(kamoku,kaisu)
+            self.main.returnSignal.connect(self.return_toppage)
             self.setCentralWidget(self.main)
         except:
             import traceback
@@ -57,19 +59,21 @@ class MainWindow(QMainWindow):
     # トップページに戻る
     @Slot()
     def return_toppage(self):
-        self.gamelikeWidget = '' # この時点でGamelikeWidget()は消される，しかし並列処理しているのIC読み取り部分は止まらない
+        self.main = ''
         self.start_widget = StartWidget()
-        self.start_widget.changeWidget.connect(lambda x,y:self.change(x,y))
+        self.start_widget.clicked_signal.connect(self.change)
         self.setCentralWidget(self.start_widget)
+
 
 
 # 起動時の画面
 class MainWidget(QWidget):
     changeWidget = Signal(str,int)
-    def __init__(self):
+    returnSignal = Signal()
+    def __init__(self,kamoku,kaisu):
         super().__init__()
         # self.setFixedSize(800,480)
-        self.ic_reader = ""#icリーダーオブジェクト
+        self.attendace_management = AttendanceManagement(kamoku,int(kaisu))
         self.uketuke = True
         self.initUI()
         self.initSlot()
@@ -98,6 +102,8 @@ class MainWidget(QWidget):
         self.name_label.setGraphicsEffect(ShadowEffect(self))
         self.name_label.setMargin(20)
         self.name_label.setSizePolicy(QSizePolicy.Preferred,QSizePolicy.Preferred)
+        self.name_label.setWordWrap(True)
+        # self.name_label.setSizePolicy(QSizePolicy.Preferred,QSizePolicy.Preferred)
         # 出席ラベル
         self.syusseki_label = SyussekiWidget()
         self.syusseki_label.setText('')
@@ -119,7 +125,7 @@ class MainWidget(QWidget):
         self.exit_btn.setObjectName('ExitBtn')
         # self.exit_btn.setStyleSheet("border-radius:30%;color:white;background-color: black;")
         self.exit_btn.setFont(QFont("メイリオ",20))
-        self.exit_btn.clicked.connect(lambda :(self.name_label.setText("スズキイチロウタロウジロウ"),self.syusseki_label.setText("欠席")))
+        self.exit_btn.clicked.connect(lambda :(self.name_label.setText("スズキイチロウタロ\nウジロウ"),self.syusseki_label.setText("欠席")))
         # スタートボタン
         self.btn = QPushButton("授業開始")
         self.btn.clicked.connect(self.emit_clicked)
@@ -128,7 +134,7 @@ class MainWidget(QWidget):
         self.btn.setStyleSheet(btn_css)
         self.btn.setGraphicsEffect(ShadowEffect(self))
         # 科目コンボボックス
-        self.kamoku = ['F1','F2','F3','F4','F5','M1','M2','M3','M4','M5']
+        self.kamoku = ['F1','F2','F3','F4','F5','M1','M2','M3','M4','M5','s2','s3','s4','s5','m1','m2','l3','m4','m5']
         self.kamoku_combo = QComboBox()
         self.kamoku_combo.setFont(QFont('メイリオ',20))
         self.kamoku_combo.setFixedSize(200,130)
@@ -202,14 +208,24 @@ class MainWidget(QWidget):
         self.setLayout(self.main_layout)
         # self.setGraphicsEffect(ShadowEffect(self))
 
+    # 最初の画面に戻る
+    @Slot()
+    def return_window(self):
+        res = QMessageBox.question(self, '終了します', '出席管理を終わりまする．')
+        if res == QMessageBox.Yes:
+            self.returnSignal.emit()
+            self.close()
+
     # スロット設定
     def initSlot(self):
-        self.return_btn.clicked.connect(self.update_text)
+        # self.return_btn.clicked.connect(self.update_text)
+        self.return_btn.clicked.connect(self.return_window)
         self.exit_btn.clicked.connect(self.exit_window)
 
     # 初期テキスト
     def init_text(self):
         self.name_label.setText('待機中')
+        self.name_label.setFont(QFont('メイリオ',30))
         self.syusseki_label.setText('')
         self.uketuke = True
         print('init_text')
@@ -228,6 +244,24 @@ class MainWidget(QWidget):
         print(self.kaisu_combo.currentText())
         self.changeWidget.emit(str(self.kamoku_combo.currentText()),int(self.kaisu_combo.currentText()))
 
+    #
+    def update_text2(self,name,syusseki):
+        if self.uketuke:
+            self.uketuke = False
+            if syusseki == '出席' or syusseki == '遅刻' or syusseki == '欠席':
+                self.name_label.setText(name)
+                self.syusseki_label.setText(syusseki)
+            elif syusseki == 'エラー':
+                self.name_label.setFont(QFont('メイリオ', 15))
+                self.name_label.setText('履修者として登録されていません')
+                self.syusseki_label.setText('エラー')
+            else :
+                pass
+            QTimer.singleShot(2000, self.init_text) # 二秒後に行う処理を書く
+            print("並列処理再開 on MainWidget.update_text")
+            QTimer.singleShot(2000, self.attendace_management.event.set)
+
+
     # ラベルとかその他とかをアップデート
     @Slot()
     def update_text(self):
@@ -236,8 +270,10 @@ class MainWidget(QWidget):
         # 表示中にスキャンできないようにフラグを用意する
         if self.uketuke:
             self.uketuke = False
-            self.name_label.setText('伊集院長谷川')
-            self.syusseki_label.setText('遅刻')
+            self.name_label.setFont(QFont('メイリオ',15))
+            self.name_label.setText('履修者として登録されていません')
+            self.syusseki_label.setText('エラー')
+            # self.name_label.setFont(QFont('メイリオ',30))
             # time.sleep(2)
             QTimer.singleShot(2000, self.init_text) # 二秒後に行う処理を書く
             # self.init_text()
