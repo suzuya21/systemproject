@@ -97,11 +97,15 @@ class uploadWindow(QWidget):
     #コンボボックスから参照してファイルをアップロードする
     def upload_risyusya_list(self):
         flag = True
-        self.post()
+        self.post(flag)
 
-        # ダウンロード成功時の処理
-        if flag:
+        # アップロード成功時の処理
+        if flag==True:
             res = QMessageBox.information(self, 'アップロード完了', '出席データのアップロードが成功しました',QMessageBox.Ok)
+
+        # アップロード失敗時の処理
+        elif flag==False:
+            res = QMessageBox.information(self, 'アップロード失敗', '出席データのアップロードができませんでした',QMessageBox.Ok)
 
 # アプリの実行と終了
 if __name__ == '__main__':
