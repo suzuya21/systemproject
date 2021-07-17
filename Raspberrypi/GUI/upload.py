@@ -101,7 +101,7 @@ class uploadWindow(QWidget):
 
         # ダウンロード成功時の処理
         if flag:
-            res = QMessageBox.information(self, 'ダウンロード完了', '履修者リストのダウンロードが成功しました',QMessageBox.Ok)
+            res = QMessageBox.information(self, 'アップロード完了', '出席データのアップロードが成功しました',QMessageBox.Ok)
 
 # アプリの実行と終了
 if __name__ == '__main__':
