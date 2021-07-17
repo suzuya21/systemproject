@@ -2,13 +2,15 @@ from PySide2.QtWidgets import *
 from PySide2.QtGui import *
 from PySide2.QtCore import *
 from shadow_effect import ShadowEffect
-# 出席,遅刻,欠席とか表示されるラベル
+
+# 出席,遅刻,欠席とか出欠状況が表示されるラベル
 class SyussekiWidget(QLabel):
     def __init__(self):
         super(SyussekiWidget, self).__init__()
         self.attend = "出席"
         self.late = "遅刻"
         self.absence = "欠席"
+        self.error = "エラー"
         self.initUI()
 
     def initUI(self):
@@ -30,6 +32,9 @@ class SyussekiWidget(QLabel):
             self.setGraphicsEffect(ShadowEffect(self).set_shadow_color(64, 64, 64, 180))
         elif text == self.late:
             self.setStyleSheet("border-radius:40%;color:#F2B33D;background-color: white;")
+            self.setGraphicsEffect(ShadowEffect(self).set_shadow_color(184, 136, 59, 180))
+        elif text == self.error:
+            self.setStyleSheet("border-radius:40%;color:#000000;background-color: yellow;")
             self.setGraphicsEffect(ShadowEffect(self).set_shadow_color(184, 136, 59, 180))
         else:
             self.setStyleSheet("border-radius:40%;color:#8AC75A;background-color: white;")
