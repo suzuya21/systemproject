@@ -8,7 +8,8 @@ import time
 import threading
 import datetime
 from ic_reader import ICReader 
-from attendance_management import AttendanceManagement,AttendIdent
+# from attendance_management import AttendanceManagement,AttendIdent
+from attendance_management2 import AttendanceManagement
 from shadow_effect import ShadowEffect
 from totalization_widget import TotalizationWidget
 from clock_widget import ClockWidget
@@ -48,7 +49,17 @@ class MainWindow(QMainWindow):
     # 出席状況表示用ウィジェットに切り替え
     @Slot(str,int)
     def change(self,kamoku,kaisu):
+        print('科目ID',kamoku,'授業回数',kaisu)
+        tmp = AttendanceManagement(kamoku,kaisu)
         try:
+            if not tmp.is_ready():
+                pass
+            if not tmp.is_existed_file()[0]:
+                if 0 in tmp.is_existed_file()[1]:
+                    QMessageBox.warning(self,'NotFoundError','履修者ファイルがありません')
+                elif 1 in tmp.is_existed_file()[1]:
+                    QMessageBox.warning(self,'NotFoundError','規則データがありません')
+                return
             self.main = MainWidget(kamoku,kaisu)
             self.main.returnSignal.connect(self.return_toppage)
             self.setCentralWidget(self.main)
@@ -66,19 +77,29 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(self.start_widget)
 
 
-
 # 起動時の画面
 class MainWidget(QWidget):
     changeWidget = Signal(str,int)
     returnSignal = Signal()
+    readSignal = Signal(str,str)
     def __init__(self,kamoku,kaisu):
         super().__init__()
         # self.setFixedSize(800,480)
         self.attendace_management = AttendanceManagement(kamoku,int(kaisu))
+        self.attendace_management.on_connect(self.update_text2)
+        self.attendace_management.on_connect(lambda x,y:self.readSignal.emit(x,y))
+        self.readSignal.connect(lambda x,y:self.update_text2(x,y))
+        self.attendace_management.set_kisoku()
+        self.attendace_management.set_attendance_list()
+        self.attendace_management.start()
         self.uketuke = True
         self.initUI()
         self.initSlot()
         self.setStyle(QStyleFactory.create('WindowsXP'))
+
+    def __del__(self):
+        print("削除")
+        self.attendace_management.__del__()
 
     def initUI(self):
         # 上段
@@ -204,6 +225,7 @@ class MainWidget(QWidget):
         self.name_label.setFont(QFont('メイリオ',30))
         self.syusseki_label.setText('')
         self.uketuke = True
+        QCoreApplication.processEvents()
         print('init_text')
 
     # 画面を落とす
@@ -220,25 +242,32 @@ class MainWidget(QWidget):
         print(self.kaisu_combo.currentText())
         self.changeWidget.emit(str(self.kamoku_combo.currentText()),int(self.kaisu_combo.currentText()))
 
-    #
+    @Slot(str,str)
     def update_text2(self,name,syusseki):
+        print(syusseki)
         if self.uketuke:
             self.uketuke = False
-            if syusseki == '出席' or syusseki == '遅刻' or syusseki == '欠席':
-                self.name_label.setText(name)
-                self.syusseki_label.setText(syusseki)
-            elif syusseki == 'エラー':
+            if syusseki == 'already':
+                self.name_label.setFont(QFont('メイリオ', 15))
+                self.name_label.setText('既に出欠登録済みです')
+                self.syusseki_label.setText('')
+            elif syusseki == 'not':
                 self.name_label.setFont(QFont('メイリオ', 15))
                 self.name_label.setText('履修者として登録されていません')
                 self.syusseki_label.setText('エラー')
-            else :
-                self.name_label.setFont(QFont('メイリオ', 15))
-                self.name_label.setText('既に出欠登録済みです')
-                self.syusseki_label.setText('エラー')
-            QTimer.singleShot(2000, self.init_text) # 二秒後に行う処理を書く
-            print("並列処理再開 on MainWidget.update_text")
-            QTimer.singleShot(2000, self.attendace_management.event.set)
-
+            else:
+                self.name_label.setText(name)
+                self.syusseki_label.setText(syusseki)
+                if syusseki == '出席':
+                    self.syukei.set_attend()
+                elif syusseki == '遅刻':
+                    self.syukei.set_late()
+                elif syusseki == '欠席':
+                    self.syukei.set_absence()
+        QCoreApplication.processEvents()
+        QTimer.singleShot(2000, self.init_text) # 二秒後に行う処理を書く
+        print("並列処理再開 on MainWidget.update_text")
+        QTimer.singleShot(2000,self.attendace_management.event.set)
 
     # ラベルとかその他とかをアップデート
     @Slot()

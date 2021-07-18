@@ -1,4 +1,5 @@
 import os
+import sys
 import threading
 import ReadCsv
 import CreateCsv
@@ -38,13 +39,19 @@ class AttendanceManagement(threading.Thread):
     # 必要なファイルがすべて存在する場合はTrue，それ以外False
     def is_existed_file(self):
         flag = True
-        if not os.path.isfile(self.ListPath) or not os.path.isfile(self.RulePath):
-            print(self.ListPath +'か'+ self.RulePath + 'が存在しません.')
+        index = []
+        if not os.path.isfile(self.ListPath):
+            print(self.ListPath + 'が存在しません.')
+            flag = False,
+            index.append(0)
+        if not os.path.isfile(self.RulePath):
+            print(self.RulePath + 'が存在しません.')
             flag = False
+            index.append(1)
         if not os.path.isfile(self.path):
             print(self.path + 'が存在しません.')
             flag = False
-        return flag
+        return flag,index
 
     # 規則データセット
     def set_kisoku(self):
@@ -61,6 +68,7 @@ class AttendanceManagement(threading.Thread):
     def set_attendance_list(self):
         self.GetInfo = []
         ReadCsv.readCsv(self.path, self.GetInfo)
+        print(self.GetInfo)
 
     # 読み取り開始
     def run(self):
@@ -74,6 +82,8 @@ class AttendanceManagement(threading.Thread):
         i = 0
         while True:
             #os.system('PAUSE')
+            # from termios import tcflush, TCIFLUSH
+            # tcflush(sys.stdin, TCIFLUSH)
             input('続行するには何かキーを押してください')
 
             ID = self.GetInfo[i][2]
@@ -86,18 +96,18 @@ class AttendanceManagement(threading.Thread):
             AInfo = GetAttendanceInfo.GAInfo(Time, self.SubjectRule, self.SG, self.TG)
             print(AInfo)
 
-            print(SInfo)
-            SInfo.append(AInfo)
-            
+
             if SInfo == 1:#履修者ではない
-                SInfo = ('','','not') # ダミーデータ
+                SInfo = ('','','','not') # ダミーデータ
                 #os.system('PAUSE')
             elif SInfo == 2: # すでに
-                SInfo = ('','','alrealdy')
+                SInfo = ('','','','already')
                 print("SInfo is None")
             #print(SInfo)
             #print('名前：' + SInfo[1] + '　学籍番号：' + SInfo[2])
             else:
+                SInfo.append(AInfo)
+                print(SInfo)
                 #名前と学籍番号, 出席状況を表示できます
                 print('名前：' + SInfo[1] + ' 学籍番号：' + SInfo[2] + ' ' + SInfo[3])
 

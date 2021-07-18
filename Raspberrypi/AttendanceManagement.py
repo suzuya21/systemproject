@@ -1,14 +1,13 @@
 #最終変更日7月5日
 import SampleReadCardList
 import IdReference
-import CreateCsv
+from Raspberrypi.mainGUI import CreateCsv, ReadCsv
 import WriterCsv
-import SendId
 import os
 import sys
 
 import gM1
-import ReadCsv
+
 gM1
 
 ListP = r'C:\Users\健太\.vscode\Raspberry Piの制御\講義データ(noWin)\履修者-M1.csv'
