@@ -13,7 +13,7 @@ from requests.exceptions import Timeout
 def get_risyudata(kamoku): # kamokuは科目IDでstr型
     dir_path = "data/input"
     os.makedirs(dir_path, exist_ok=True)
-    get_url = 'http://192.168.1.17/csv/?kamoku='+kamoku
+    get_url = "http//localhost:5000/csv/?kamoku="+kamoku
     try:
         url = requests.get(get_url)
         text = url.text
@@ -37,6 +37,7 @@ def get_risyudata(kamoku): # kamokuは科目IDでstr型
         out_kisoku = dir_path + "/kisoku_" + kamoku + ".csv" 
         df_json.to_csv(out_kisoku, encoding='utf-8')
         print("ダウンロード・ファイル保存完了")
+        return True
     except:
         return False
 
@@ -61,13 +62,11 @@ def post(kaisu,kamoku): # kaisuはint型 kamokuは科目IDでstr型
     print(jdata)
     try:
         response = requests.post(
-        'http://192.168.1.17/csv/',
+        'http://127.0.0.1:5000/csv/',
             json=json.dumps(jdata))#,
             #headers={'Content-Type': 'application/json'})
         # pprint.pprint(response.json())
         #resDatas = response.json()
+        return True
     except:
         return False
-
-if __name__ == '__main__':
-    get_risyudata('F1')
