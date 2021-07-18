@@ -22,7 +22,7 @@ class StartWidget(QWidget):
 
         # 科目コンボボックス
         try:
-            with open('data/kamoku.csv','r',encoding='utf-8') as f:
+            with open('../data/kamoku.csv', 'r', encoding='utf-8') as f:
                 import csv
                 reader = csv.reader(f)
                 next(reader)

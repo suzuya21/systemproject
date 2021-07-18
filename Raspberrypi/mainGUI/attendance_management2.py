@@ -18,9 +18,9 @@ class AttendanceManagement(threading.Thread):
         # Team4Project.pyより
         self.SubjectID = SubjectID
         self.Count = Count
-        self.ListPath = os.path.abspath(f'data/input/risyu_{SubjectID}.csv')
-        self.RulePath = os.path.abspath(f'data/input/kisoku_{SubjectID}.csv')
-        self.path = os.path.abspath(f'{SubjectID}/{SubjectID}-AttendanceList{Count}.csv')
+        self.ListPath = os.path.abspath(f'../data/input/risyu_{SubjectID}.csv')
+        self.RulePath = os.path.abspath(f'../data/input/kisoku_{SubjectID}.csv')
+        self.path = os.path.abspath(f'../{SubjectID}/{SubjectID}-AttendanceList{Count}.csv')
         self.checked_list = [] # {}-読み取り履歴_{}.csvの代わり
         self.Registerlist = [] # 履修者リスト
         self.GetInfo = [] # GenerateInformationで作成したデータ
@@ -32,7 +32,7 @@ class AttendanceManagement(threading.Thread):
 
     # ファイルチェック等準備完了の場合True
     def is_ready(self):
-        if not os.path.isfile(f'data/output/{self.SubjectID}_{self.Count}.csv'):
+        if not os.path.isfile(f'../data/output/{self.SubjectID}_{self.Count}.csv'):
             CreateCsv.create(self.SubjectID, self.Count)
         return True
 

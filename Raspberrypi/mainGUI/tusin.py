@@ -11,7 +11,7 @@ from requests.exceptions import Timeout
 
 # 多分動く getのみのスクリプトは動いてた
 def get_risyudata(kamoku): # kamokuは科目IDでstr型
-    dir_path = "data/input"
+    dir_path = "../data/input"
     os.makedirs(dir_path, exist_ok=True)
     get_url = "http//localhost:5000/csv/?kamoku="+kamoku
     try:

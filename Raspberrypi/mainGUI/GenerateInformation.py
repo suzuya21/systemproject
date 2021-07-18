@@ -18,7 +18,8 @@ def generate(SubjectID, fileKisoku, fileIDm):
 
     #講義回ごとの正規分布の平均(mus)と標準偏差(sigmas)
     mus = [3, 5, 5, 7, 9, 10, 10, 10, 10, 10, 12, 10, 11, 8, 7]
-    sigmas = [5, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10]
+    sigmas = [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10]
+    sigmas = [20 for i in range(15)]
 
     DataIDm = []
     ReadCsv.readCsv(fileIDm, DataIDm)
@@ -85,6 +86,7 @@ def generate_random_datetimes(Y, M, D, H, m0, mu, sigma, N):
         Hp = H
         Mp = m
         # 分が59を超えたら時間を+1，分を-60
+        print(Mp)
         if Mp > MinMax:
             Hp += 1
             Mp -= MinMax+1
