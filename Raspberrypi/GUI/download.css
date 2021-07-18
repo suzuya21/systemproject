@@ -1,0 +1,50 @@
+#uploadWindow{
+    background-color: white;
+}
+
+#title{
+    border-radius: 30%;
+    padding-right: 60px;
+    margin-right: 20px;
+    margin-left: 20px;
+    background-color: white;
+    background-image: url(download.png);
+    background-repeat:  no-repeat; 
+    background-position: right;
+    
+}
+
+#kougi_combobox{
+    background-color: white;
+    border-radius: 30%;
+    padding: 0% 0% 0% 100%;
+}
+
+
+#count_combobox{
+    background-color: white;
+    border-radius: 30%;
+    padding: 0% 0% 0% 100%;
+}
+
+#btn{
+    background-image: url(dwnbtn.png) ;
+    background-repeat:  no-repeat; 
+    background-position: right;
+    border-radius:30%;
+    color:black;
+    background-color: white;
+}
+
+#btn:hover{
+    background-color: aliceblue;
+}
+
+QComboBox::drop-down {border: 0px;}
+
+QComboBox::down-arrow {
+    image: url(arrow.png);
+    padding:0% 50% 0% 0%;
+    width: 200%;
+    height: 200%;
+}
