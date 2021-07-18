@@ -32,7 +32,7 @@ class MainWindow(QMainWindow):
         self.start_widget = StartWidget()
         #self.common = TestWidget()
         self.setCentralWidget(self.start_widget)
-        self.start_widget.clicked_signal.connect(self.change)
+        self.start_widget.clicked_signal.connect(lambda x,y:self.change(x,y))
         #self.setCentralWidget(self.common)
         # self.start_widget.changeWidget.connect(lambda x,y:self.change(x,y))
         self.status.hide
@@ -133,56 +133,46 @@ class MainWidget(QWidget):
         btn_css = 'QPushButton{border-radius:20%;color:black;background-color: white;}QPushButton:hover{background-color: red;}'
         self.btn.setStyleSheet(btn_css)
         self.btn.setGraphicsEffect(ShadowEffect(self))
-        # 科目コンボボックス
-        self.kamoku = ['F1','F2','F3','F4','F5','M1','M2','M3','M4','M5','s2','s3','s4','s5','m1','m2','l3','m4','m5']
-        self.kamoku_combo = QComboBox()
-        self.kamoku_combo.setFont(QFont('メイリオ',20))
-        self.kamoku_combo.setFixedSize(200,130)
-        for s in self.kamoku:
-            self.kamoku_combo.addItem(s)
-        self.kamoku_combo.setStyleSheet("overflow:hidden;appearance:none;border-radius:30%; padding: 3px 15px 3px 15px;color:black;background-color: white;")
-        self.kamoku_combo.setGraphicsEffect(ShadowEffect(self))
-        # 回数コンボボックス
-        self.kaisu = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
-        self.kaisu_combo = QComboBox()
-        self.kaisu_combo.setFixedSize(200,130)
-        for s in self.kaisu:
-            self.kaisu_combo.addItem(str(s))
         # 集計
         self.syukei = TotalizationWidget()
         self.syukei.setGraphicsEffect(ShadowEffect(self))
+
         # layout
-        self.main_layout = QVBoxLayout()
-        self.combo_layout = QHBoxLayout()
-        self.clockLayout = QVBoxLayout()
+        self.main_layout = QVBoxLayout() # 全体のレイアウト
+        self.headerLayout = QGridLayout() # 上段部分レイアウト
+        self.middleLayout = QGridLayout() # 中段部分レイアウト
+        self.footerLayout = QGridLayout() # 下段部分レイアウト
+        self.clockLayout = QVBoxLayout() # 時計部分レイアウト
+        self.btn_layout = QHBoxLayout() # ボタン部分レイアウト
+
+        # レイアウトの設定
+        self.main_layout.setSpacing((self.height()+self.width())/20)
+        self.main_layout.setMargin((self.height()+self.width())/20)
+        self.main_layout.setSpacing(40)
+        self.main_layout.setMargin(40)
+        self.headerLayout.setContentsMargins(0,0,20,0)
+        self.middleLayout.setContentsMargins(25,0,25,0)
+        self.footerLayout.setContentsMargins(10,0,10,0)
+        # 上段
         self.clockLayout.addWidget(self.clock)
         self.clockLayout.addWidget(QWidget())
         # self.clockLayout.addStretch(1)
-        self.headerLayout = QGridLayout()
-        self.headerLayout.setContentsMargins(0,0,20,0)
         # self.headerLayout.setColumnStretch(0,1)
         self.headerLayout.addWidget(QWidget(),0,0) # stretchの使い方がわからないので無理やり
         self.headerLayout.addWidget(self.label,0,1,1,3)
         # self.headerLayout.setColumnStretch(4,1)
         self.headerLayout.addLayout(self.clockLayout,0,5)
-        self.main_layout.setSpacing((self.height()+self.width())/20)
-        self.main_layout.setMargin((self.height()+self.width())/20)
-        self.main_layout.setSpacing(40)
-        self.main_layout.setMargin(40)
         # self.main_layout.addWidget(self.label)
         self.main_layout.addLayout(self.headerLayout)
         # self.main_layout.addStretch(1)
         # self.main_layout.addLayout(self.combo_layout)
         # self.main_layout.addStretch(1)
-        self.btn_layout = QHBoxLayout()
         self.btn_layout.addStretch()
         self.btn_layout.addWidget(self.btn)
         self.btn_layout.addStretch()
         # self.main_layout.addLayout(self.btn_layout)
 
         # middle
-        self.middleLayout = QGridLayout()
-        self.middleLayout.setContentsMargins(25,0,25,0)
         # self.middleLayout.setMargin(100)
         # self.middleLayout.setSpacing(100)
         self.middleLayout.addWidget(self.name_label,0,0,1,2)
@@ -190,8 +180,6 @@ class MainWidget(QWidget):
 
         # self.main_layout.addStretch(1)
         # 最下段
-        self.footerLayout = QGridLayout()
-        self.footerLayout.setContentsMargins(10,0,10,0)
         self.footerLayout.addWidget(self.return_btn,1,0)
         # self.footerLayout.addWidget(QWidget(),1,1)
         self.footerLayout.addWidget(self.syukei,0,2,2,1)
@@ -201,9 +189,6 @@ class MainWidget(QWidget):
         self.main_layout.addLayout(self.middleLayout)
         # self.main_layout.addStretch(1)
         self.main_layout.addLayout(self.footerLayout)
-        self.combo_layout.addWidget(self.kamoku_combo)
-        # self.combo_layout.addWidget(self.kaisu_combo)
-        # self.combo_layout.addWidget(self.clock)
 
         self.setLayout(self.main_layout)
         # self.setGraphicsEffect(ShadowEffect(self))
@@ -219,8 +204,8 @@ class MainWidget(QWidget):
     # スロット設定
     def initSlot(self):
         # self.return_btn.clicked.connect(self.update_text)
-        self.return_btn.clicked.connect(self.return_window)
-        self.exit_btn.clicked.connect(self.exit_window)
+        self.return_btn.clicked.connect(lambda :self.return_window)
+        self.exit_btn.clicked.connect(lambda :self.exit_window)
 
     # 初期テキスト
     def init_text(self):

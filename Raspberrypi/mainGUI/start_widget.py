@@ -81,5 +81,5 @@ class StartWidget(QWidget):
     def start_clicked(self):
         res = QMessageBox.question(self, '開始します', '出席を開始しますか?')
         if res == QMessageBox.Yes:
-            self.clicked_signal.emit(self.kaisu_combo.currentText(),self.kamoku_combo.currentText())
+            self.clicked_signal.emit(self.kamoku_combo.currentText(),self.kaisu_combo.currentText())
 
