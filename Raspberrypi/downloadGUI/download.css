@@ -1,0 +1,30 @@
+#TitleLabel{
+    border-radius:40%;
+    color:black;
+    background-color: white;
+}
+#DownloadBtn{
+    border-radius:20%;
+    color:black;
+    background-color: white;
+}
+#DownloadBtn:hover{background-color:aliceblue;}
+QComboBox{
+    overflow:hidden;
+    appearance:none;
+    border-radius:30%;
+    padding: 0% 0% 0% 70%;
+    color:black;
+    background-color: white;
+}
+QComboBox:hover{background-color:aliceblue;}
+QComboBox::drop-down {border: 0px;}
+QComboBox::down-arrow {
+    image: url(images/arrow.png);
+    padding:0% 50% 0% 0%;
+    width: 200%;
+    height: 200%;
+}
+#MainWindow{
+    background-color:white;
+}

@@ -3,30 +3,38 @@
     color:black;
     background-color: white;
 }
+#NameLabel{
+    border-radius:40%;
+    color:black;
+    background-color: white;
+}
 #ReturnBtn{
     border-radius:30%;
     color:black;
     background-color: white;
 }
+#ReturnBtn:hover{background-color:aliceblue;}
 #ExitBtn{
     border-radius:30%;
     color:#bbbbbb;
     background-color: #444444;
 }
+#ExitBtn:hover{background-color:#222222;}
 #StartBtn{
 border-radius:20%;
 color:black;
 background-color: white;
 }
-#StartBtn:hover{background-color: red;}
+#StartBtn:hover{background-color:aliceblue;}
 QComboBox{
     overflow:hidden;
     appearance:none;
     border-radius:30%;
-    padding: 0% 0% 0% 100%;
+    padding: 0% 0% 0% 70%;
     color:black;
     background-color: white;
 }
+QComboBox:hover{background-color:aliceblue;}
 QComboBox::drop-down {border: 0px;}
 QComboBox::down-arrow {
     image: url(images/arrow.png);

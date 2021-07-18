@@ -52,6 +52,7 @@ class MainWindow(QMainWindow):
             self.main = MainWidget(kamoku,kaisu)
             self.main.returnSignal.connect(self.return_toppage)
             self.setCentralWidget(self.main)
+            self.resize(800,480)
         except:
             import traceback
             traceback.print_exc()
@@ -98,7 +99,8 @@ class MainWidget(QWidget):
         self.name_label = QLabel('待機中')
         self.name_label.setFont(QFont('メイリオ',30))
         self.name_label.setAlignment(Qt.AlignCenter)
-        self.name_label.setStyleSheet("border-radius:40%;color:black;background-color: white;")
+        self.name_label.setObjectName('NameLabel')
+        # self.name_label.setStyleSheet("border-radius:40%;color:black;background-color: white;")
         self.name_label.setGraphicsEffect(ShadowEffect(self))
         self.name_label.setMargin(20)
         self.name_label.setSizePolicy(QSizePolicy.Preferred,QSizePolicy.Preferred)
@@ -125,14 +127,7 @@ class MainWidget(QWidget):
         self.exit_btn.setObjectName('ExitBtn')
         # self.exit_btn.setStyleSheet("border-radius:30%;color:white;background-color: black;")
         self.exit_btn.setFont(QFont("メイリオ",20))
-        self.exit_btn.clicked.connect(lambda :(self.name_label.setText("スズキイチロウタロ\nウジロウ"),self.syusseki_label.setText("欠席")))
-        # スタートボタン
-        self.btn = QPushButton("授業開始")
-        self.btn.clicked.connect(self.emit_clicked)
-        self.btn.setFixedSize(200,80)
-        btn_css = 'QPushButton{border-radius:20%;color:black;background-color: white;}QPushButton:hover{background-color: red;}'
-        self.btn.setStyleSheet(btn_css)
-        self.btn.setGraphicsEffect(ShadowEffect(self))
+        # self.exit_btn.clicked.connect(lambda :(self.name_label.setText("スズキイチロウタロ\nウジロウ"),self.syusseki_label.setText("欠席")))
         # 集計
         self.syukei = TotalizationWidget()
         self.syukei.setGraphicsEffect(ShadowEffect(self))
@@ -143,13 +138,12 @@ class MainWidget(QWidget):
         self.middleLayout = QGridLayout() # 中段部分レイアウト
         self.footerLayout = QGridLayout() # 下段部分レイアウト
         self.clockLayout = QVBoxLayout() # 時計部分レイアウト
-        self.btn_layout = QHBoxLayout() # ボタン部分レイアウト
 
         # レイアウトの設定
         self.main_layout.setSpacing((self.height()+self.width())/20)
         self.main_layout.setMargin((self.height()+self.width())/20)
-        self.main_layout.setSpacing(40)
-        self.main_layout.setMargin(40)
+        self.main_layout.setSpacing(30)
+        self.main_layout.setMargin(30)
         self.headerLayout.setContentsMargins(0,0,20,0)
         self.middleLayout.setContentsMargins(25,0,25,0)
         self.footerLayout.setContentsMargins(10,0,10,0)
@@ -167,9 +161,6 @@ class MainWidget(QWidget):
         # self.main_layout.addStretch(1)
         # self.main_layout.addLayout(self.combo_layout)
         # self.main_layout.addStretch(1)
-        self.btn_layout.addStretch()
-        self.btn_layout.addWidget(self.btn)
-        self.btn_layout.addStretch()
         # self.main_layout.addLayout(self.btn_layout)
 
         # middle
@@ -204,8 +195,8 @@ class MainWidget(QWidget):
     # スロット設定
     def initSlot(self):
         # self.return_btn.clicked.connect(self.update_text)
-        self.return_btn.clicked.connect(lambda :self.return_window)
-        self.exit_btn.clicked.connect(lambda :self.exit_window)
+        self.return_btn.clicked.connect(lambda :self.return_window())
+        self.exit_btn.clicked.connect(lambda :self.exit_window())
 
     # 初期テキスト
     def init_text(self):
@@ -241,7 +232,9 @@ class MainWidget(QWidget):
                 self.name_label.setText('履修者として登録されていません')
                 self.syusseki_label.setText('エラー')
             else :
-                pass
+                self.name_label.setFont(QFont('メイリオ', 15))
+                self.name_label.setText('既に出欠登録済みです')
+                self.syusseki_label.setText('エラー')
             QTimer.singleShot(2000, self.init_text) # 二秒後に行う処理を書く
             print("並列処理再開 on MainWidget.update_text")
             QTimer.singleShot(2000, self.attendace_management.event.set)
@@ -265,7 +258,7 @@ class MainWidget(QWidget):
             print("並列処理再開 on GamelikeWidget.update_text")
             # QTimer.singleShot(2000, self.reader.event.set)
 
-
+# ポケモン風UI -> ボツ
 class GamelikeWidget(QWidget):
     readidm:Signal = Signal(str) # idmを読み取ったときのsignal
     returnsignal:Signal = Signal() # 画面をトップページに戻したいときのsignal
