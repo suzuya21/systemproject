@@ -5,5 +5,5 @@
 
 #csvファイルを作成する関数
 def create(SubjectID, Count):
-    f = open(f'{SubjectID}_{Count}.csv', 'w', encoding = "utf_8", newline = '')
+    f = open(f'data/output/{SubjectID}_{Count}.csv', 'w', encoding = "utf_8", newline = '')
     f.close

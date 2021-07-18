@@ -4,4 +4,6 @@ Raspberrypi/__pycache__
 Raspberrypi/mainGUI/__pycache__
 Raspberrypi/*.csv
 Raspberrypi/F2/*.csv
+Raspberrypi/data/
 /*.py
+

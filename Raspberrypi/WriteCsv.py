@@ -5,7 +5,7 @@ import csv
 
 #csvファイルに書き込む関数
 def write(info, SubjectID, Count):
-    with open(f'{SubjectID}_{Count}.csv', 'a', encoding = 'utf_8', newline = '') as f:
+    with open(f'data/output/{SubjectID}_{Count}.csv', 'a', encoding = 'utf_8', newline = '') as f:
         writer = csv.writer(f)
         writer.writerow(info)
         f.close
