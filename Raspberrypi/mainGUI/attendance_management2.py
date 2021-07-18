@@ -27,7 +27,7 @@ class AttendanceManagement(threading.Thread):
 
     # 読み取り履歴を削除，
     def __del__(self):
-        os.remove(f'{self.SubjectID}-読み取り履歴{self.Count}.csv')
+        # os.remove(f'{self.SubjectID}-読み取り履歴{self.Count}.csv')
         print('終了します.')
 
     # ファイルチェック等準備完了の場合True
@@ -100,10 +100,10 @@ class AttendanceManagement(threading.Thread):
             if SInfo == 1:#履修者ではない
                 SInfo = ('','','','not') # ダミーデータ
                 #os.system('PAUSE')
-            elif SInfo == 2: # すでに
-                SInfo = ('','','','already')
                 print("SInfo is None")
             #print(SInfo)
+            elif len(SInfo) == 4:
+                print(SInfo)
             #print('名前：' + SInfo[1] + '　学籍番号：' + SInfo[2])
             else:
                 SInfo.append(AInfo)

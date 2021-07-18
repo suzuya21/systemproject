@@ -247,10 +247,9 @@ class MainWidget(QWidget):
         print(syusseki)
         if self.uketuke:
             self.uketuke = False
-            if syusseki == 'already':
-                self.name_label.setFont(QFont('メイリオ', 15))
-                self.name_label.setText('既に出欠登録済みです')
-                self.syusseki_label.setText('')
+            if syusseki == '登録済':
+                self.name_label.setText(name)
+                self.syusseki_label.setText(syusseki)
             elif syusseki == 'not':
                 self.name_label.setFont(QFont('メイリオ', 15))
                 self.name_label.setText('履修者として登録されていません')

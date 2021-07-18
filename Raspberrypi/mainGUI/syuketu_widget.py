@@ -11,6 +11,7 @@ class SyussekiWidget(QLabel):
         self.late = "遅刻"
         self.absence = "欠席"
         self.error = "エラー"
+        self.already = "登録済"
         self.initUI()
 
     def initUI(self):
@@ -36,6 +37,9 @@ class SyussekiWidget(QLabel):
         elif text == self.error:
             self.setStyleSheet("border-radius:40%;color:#000000;background-color: yellow;")
             self.setGraphicsEffect(ShadowEffect(self).set_shadow_color(184, 136, 59, 180))
+        elif text == self.already:
+            self.setStyleSheet("border-radius:40%;color:#1e90ff;background-color: #e0ffff;")
+            self.setGraphicsEffect(ShadowEffect(self).set_shadow_color(64, 64, 64, 180))
         else:
             self.setStyleSheet("border-radius:40%;color:#8AC75A;background-color: white;")
             self.setGraphicsEffect(ShadowEffect(self).set_shadow_color(64, 64, 64, 180))

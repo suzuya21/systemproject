@@ -40,10 +40,12 @@ def GSInfo(ID, Registerlist, SubjectID, Count):
     for i in H:
         for j in i:
             if ID == j:
+                print(STInfo)
                 print('あなたはすでに登録済みです.')
-                return 2
+                STInfo.append('登録済')
+                return STInfo
 
-    #print(H)
+    print(H)
 
     #IDがまだ登録されていないときの処理
     #{Team4Project.SubjectID}-読み取り履歴{Team4Project.Count}.csvに登録されていないIDを書き込み
