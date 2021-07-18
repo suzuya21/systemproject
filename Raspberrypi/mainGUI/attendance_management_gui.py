@@ -2,19 +2,14 @@ import sys
 from PySide2.QtWidgets import *
 from PySide2.QtGui import *
 from PySide2.QtCore import *
-import ctypes
-import requests
-import time
-import threading
-import datetime
-from ic_reader import ICReader 
+from ic_reader import ICReader
 # from attendance_management import AttendanceManagement,AttendIdent
 from attendance_management2 import AttendanceManagement
 from shadow_effect import ShadowEffect
-from totalization_widget import TotalizationWidget
-from clock_widget import ClockWidget
-from syuketu_widget import SyussekiWidget
-from start_widget import StartWidget
+from widget.totalization_widget import TotalizationWidget
+from widget.clock_widget import ClockWidget
+from widget.syuketu_widget import SyussekiWidget
+from widget.start_widget import StartWidget
 
 # ラズパイ公式7インチタッチパネル 800 x 480 60fps
 
