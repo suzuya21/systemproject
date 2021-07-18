@@ -21,7 +21,15 @@ class StartWidget(QWidget):
         self.title_label.setSizePolicy(QSizePolicy.Preferred,QSizePolicy.Preferred)
 
         # 科目コンボボックス
-        self.kamoku = ['F1','F2','F3','F4','F5','M1','M2','M3','M4','M5','W2','F2','F3','F4','F5','M1','M2','M3','M4','M5','W2']
+        try:
+            with open('data/kamoku.csv','r',encoding='utf-8') as f:
+                import csv
+                reader = csv.reader(f)
+                next(reader)
+                kamoku = [row [0] for row in reader]
+        except:
+            kamoku = ['F1','F2','F3','F4','F5','M1','M2','M3','M4','M5','W2','F2','F3','F4','F5','M1','M2','M3','M4','M5','W2']
+        self.kamoku = kamoku
         self.kamoku_combo = QComboBox()
         self.kamoku_combo.setFont(QFont('メイリオ',20))
         # self.kamoku_combo.setFixedSize(200,130)
