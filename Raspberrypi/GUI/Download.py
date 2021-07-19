@@ -8,8 +8,23 @@ from tusin import get_risyudata
 from shadow_effect import ShadowEffect
 
 
+class downloadMainWindow(QMainWindow):
+    def __init__(self, parent = None):
+        super().__init__()
+        self.setObjectName('downloadMainWindow')
+        self.main_widget = downloadWindow()
+        self.setCentralWidget(self.main_widget)
+        self.status = QStatusBar()
+        self.setStatusBar(self.status)
+        self.setFixedSize(800,480)
+        statuslabel = QLabel()
+        statuslabel.setTextInteractionFlags(Qt.LinksAccessibleByMouse)
+        statuslabel.setOpenExternalLinks(True)
+        statuslabel.setText('<a href="table.html">科目ID，科目名対応表</a>')
+        self.status.addWidget(statuslabel)
 
-class uploadWindow(QWidget):
+
+class downloadWindow(QWidget):
     def __init__(self, parent = None):
         super().__init__()
 
@@ -114,8 +129,9 @@ class uploadWindow(QWidget):
 # アプリの実行と終了
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    ex = uploadWindow()
-    
+    # ex = downloadWindow()
+    ex = downloadMainWindow()
+
     #cssの読み込み
     with open('css/download.css', 'r') as f:
         css = f.read()

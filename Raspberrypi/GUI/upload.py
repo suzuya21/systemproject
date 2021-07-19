@@ -4,10 +4,24 @@ import os
 from PySide2.QtWidgets import *
 from PySide2.QtGui import *
 from PySide2.QtCore import *
-#from tusin import post
+from tusin import post
 from shadow_effect import ShadowEffect
 
 
+class uploadMainWindow(QMainWindow):
+    def __init__(self, parent = None):
+        super().__init__()
+        self.setObjectName('uploadMainWindow')
+        self.main_widget = uploadWindow()
+        self.setCentralWidget(self.main_widget)
+        self.status = QStatusBar()
+        self.setStatusBar(self.status)
+        self.setFixedSize(800,480)
+        statuslabel = QLabel()
+        statuslabel.setTextInteractionFlags(Qt.LinksAccessibleByMouse)
+        statuslabel.setOpenExternalLinks(True)
+        statuslabel.setText('<a href="table.html">科目ID，科目名対応表</a>')
+        self.status.addWidget(statuslabel)
 
 class uploadWindow(QWidget):
     def __init__(self, parent = None):
@@ -121,8 +135,9 @@ class uploadWindow(QWidget):
 # アプリの実行と終了
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    ex = uploadWindow()
-    
+    # ex = uploadWindow()
+    ex = uploadMainWindow()
+
     #cssの読み込み
     with open('css/upload.css', 'r') as f:
         css = f.read()
