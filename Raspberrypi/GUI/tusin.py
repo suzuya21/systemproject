@@ -5,8 +5,7 @@ import pandas as pd # py -m pip install pandas
 import os
 from requests import exceptions
 from requests.exceptions import Timeout
-
-
+from GenerateInformation import generate
 
 
 # 多分動く getのみのスクリプトは動いてた
@@ -37,6 +36,7 @@ def get_risyudata(kamoku): # kamokuは科目IDでstr型
         out_kisoku = dir_path + "/kisoku_" + kamoku + ".csv" 
         df_json.to_csv(out_kisoku, encoding='utf-8')
         print("ダウンロード・ファイル保存完了")
+        generate(kamoku, os.path.abspath(f'../data/input/kisoku_{kamoku}.csv'), os.path.abspath(f'../data/input/risyu_{kamoku}.csv'))
         return True
     except:
         import traceback

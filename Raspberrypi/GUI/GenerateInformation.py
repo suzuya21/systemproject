@@ -2,12 +2,13 @@
 #IDデータを作成するプログラム
 #SubjectIDに「'科目ID'」, SThourに「開始時刻(時)」,　STminに「開始時刻(分)」, fileIDmに「履修者データ」を渡す
 #15回分のIDデータが作成される
-from Raspberrypi.GUI import ReadCsv, SplitCharacter
+import ReadCsv, SplitCharacter
 import os
 import random
 from datetime import datetime
 import csv
 from operator import itemgetter
+import locale
 
 
 def generate(SubjectID, fileKisoku, fileIDm):
@@ -47,12 +48,16 @@ def generate(SubjectID, fileKisoku, fileIDm):
         sigma = sigmas[i]
         N = len(DataIDm)
         RD = generate_random_datetimes(Y, M, D, H, m0, mu, sigma, N)
+        print(RD)
     
         #DataRDがランダムな時間を格納するリスト
         DataRD = []
         for j in range(len(RD)):
+            #locale.setlocale(locale.LC_TIME,'en_US.UTF-8')
             YMD = '{:%Y-%m-%d}'.format(RD[j])
-            HTS = '{:%X}'.format(RD[j])
+            #HTS = '{:%X}'.format(RD[j])
+            HTS = '{:%H:%M:%S}'.format(RD[j])
+            print(YMD,HTS)
             DataRD.append([YMD, HTS])
     
         #時間の順にソートする
@@ -86,7 +91,7 @@ def generate_random_datetimes(Y, M, D, H, m0, mu, sigma, N):
         Hp = H
         Mp = m
         # 分が59を超えたら時間を+1，分を-60
-        print(Mp)
+        #print(Mp)
         if Mp > MinMax:
             Hp += 1
             Mp -= MinMax+1
