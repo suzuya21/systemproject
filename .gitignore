@@ -1,6 +1,8 @@
 .idea
 test.csv
 Raspberrypi/__pycache__
-Raspberrypi/mainGUI/__pycache__
-Raspberrypi/F2/*.csv
+Raspberrypi/GUI/__pycache__
 Raspberrypi/*.csv
+Raspberrypi/F2/*.csv
+Raspberrypi/data/
+/*.py
