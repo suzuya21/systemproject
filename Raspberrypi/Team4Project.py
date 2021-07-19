@@ -3,7 +3,7 @@
 #SubjectIDに「'科目ID'」, Countに「'講義回数'」を渡す
 #{SubjectID}_{Count}.csvが作成され, 出席情報が記録される
 
-from Raspberrypi.mainGUI import GetStudentInfo, CreateCsv, ReadCsv, GetAttendanceInfo, WriteCsv
+from Raspberrypi.GUI import GetStudentInfo, CreateCsv, ReadCsv, GetAttendanceInfo, WriteCsv
 import os
 
 def AttendanceManagement(SubjectID, Count):

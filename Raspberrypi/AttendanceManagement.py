@@ -1,7 +1,7 @@
 #最終変更日7月5日
 import SampleReadCardList
 import IdReference
-from Raspberrypi.mainGUI import CreateCsv, ReadCsv
+from Raspberrypi.GUI import CreateCsv, ReadCsv
 import WriterCsv
 import os
 import sys

@@ -4,7 +4,7 @@
 #CurrentTimeに渡した時間によって出席・遅刻・欠席を判別し結果を文字列で返す
 
 import time_compare
-from Raspberrypi.mainGUI import ReadCsv, SplitCharacter
+from Raspberrypi.GUI import ReadCsv, SplitCharacter
 import os
 
 def GAInfo(CurrentTime, SubjectRule, SG, TG):

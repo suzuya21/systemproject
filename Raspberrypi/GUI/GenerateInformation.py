@@ -2,7 +2,7 @@
 #IDデータを作成するプログラム
 #SubjectIDに「'科目ID'」, SThourに「開始時刻(時)」,　STminに「開始時刻(分)」, fileIDmに「履修者データ」を渡す
 #15回分のIDデータが作成される
-from Raspberrypi.mainGUI import ReadCsv, SplitCharacter
+from Raspberrypi.GUI import ReadCsv, SplitCharacter
 import os
 import random
 from datetime import datetime
