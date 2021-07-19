@@ -4,7 +4,7 @@ import os
 from PySide2.QtWidgets import *
 from PySide2.QtGui import *
 from PySide2.QtCore import *
-from tusin import post
+#from tusin import post
 from shadow_effect import ShadowEffect
 
 
@@ -21,7 +21,7 @@ class uploadWindow(QWidget):
         self.label = QLabel(self) 
         self.label.setText("アップロード")  
         #タイトルの装飾
-        self.label.setFont(QFont('メイリオ',25))
+        self.label.setFont(QFont('メイリオ',21))
         self.label.setAlignment(Qt.AlignCenter)
         self.label.setObjectName('title')
         self.label.setGraphicsEffect(ShadowEffect(self))
@@ -66,7 +66,7 @@ class uploadWindow(QWidget):
         self.btn.clicked.connect(self.upload_risyusya_list)
 
         #アップロードボタンの装飾
-        self.btn.setFixedSize(300,80)
+        self.btn.setFixedSize(280,80)
         self.btn.setFont(QFont("メイリオ",20))
         self.btn.setObjectName('btn')
         self.btn.setGraphicsEffect(ShadowEffect(self))
