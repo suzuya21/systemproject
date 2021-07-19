@@ -20,7 +20,7 @@ class AttendanceManagement(threading.Thread):
         self.Count = Count
         self.ListPath = os.path.abspath(f'../data/input/risyu_{SubjectID}.csv')
         self.RulePath = os.path.abspath(f'../data/input/kisoku_{SubjectID}.csv')
-        self.path = os.path.abspath(f'../{SubjectID}/{SubjectID}-AttendanceList{Count}.csv')
+        self.path = os.path.abspath(f'../data/{SubjectID}/{SubjectID}-AttendanceList{Count}.csv')
         self.checked_list = [] # {}-読み取り履歴_{}.csvの代わり
         self.Registerlist = [] # 履修者リスト
         self.GetInfo = [] # GenerateInformationで作成したデータ

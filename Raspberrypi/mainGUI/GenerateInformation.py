@@ -31,7 +31,7 @@ def generate(SubjectID, fileKisoku, fileIDm):
     m0 = int(SplitCharacter.split(DataKisoku[0][1])[1])
 
     #データを出力するディレクトリがなければ作成 
-    os.makedirs(SubjectID, exist_ok=True)
+    os.makedirs('../data/'+SubjectID, exist_ok=True)
 
     #CSVファイルのヘッダ
     header = ['年月日'] + ['時刻'] + ['IDm']
@@ -69,7 +69,7 @@ def generate(SubjectID, fileKisoku, fileIDm):
     
         #ファイルに出力
         #FileOut = f'{SubjectID}/{SubjectID}-{str(Y)}{str(M).zfill(2)}{str(D).zfill(2)}.csv'
-        FileOut = f'{SubjectID}/{SubjectID}-AttendanceList{i+1}.csv'
+        FileOut = f'../data/{SubjectID}/{SubjectID}-AttendanceList{i+1}.csv'
         with open(FileOut, 'w', encoding = "utf_8", newline = '') as outfile:
             writer = csv.writer(outfile)
             writer.writerow(header)
@@ -105,5 +105,5 @@ def generate_random_datetimes(Y, M, D, H, m0, mu, sigma, N):
 
 if __name__ == '__main__':
     SubjectID = 'F1'
-    generate(SubjectID, os.path.abspath(f'data/input/kisoku_{SubjectID}.csv'), os.path.abspath(f'data/input/risyu_{SubjectID}.csv'))
+    generate(SubjectID, os.path.abspath(f'../data/input/kisoku_{SubjectID}.csv'), os.path.abspath(f'../data/input/risyu_{SubjectID}.csv'))
 

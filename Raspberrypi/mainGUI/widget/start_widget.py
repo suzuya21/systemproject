@@ -1,3 +1,5 @@
+import os.path
+
 from PySide2.QtWidgets import *
 from PySide2.QtGui import *
 from PySide2.QtCore import *
@@ -22,13 +24,16 @@ class StartWidget(QWidget):
 
         # 科目コンボボックス
         try:
-            with open('../../data/kamoku.csv', 'r', encoding='utf-8') as f:
+            with open(os.path.abspath(f'../data/kamoku.csv'), 'r', encoding='utf-8') as f:
                 import csv
                 reader = csv.reader(f)
                 next(reader)
                 kamoku = [row [0] for row in reader]
         except:
-            kamoku = ['F1','F2','F3','F4','F5','M1','M2','M3','M4','M5','W2','F2','F3','F4','F5','M1','M2','M3','M4','M5','W2']
+            import traceback
+            traceback.print_exc()
+            kamoku = ['F1', 'F2', 'F3', 'F4_1', 'F4_2', 'M1', 'M2', 'M3', 'M4', 'T2', 'T3_1', 'T3_2', 'T4', 'T5', 'Th2', 'Th34',
+         'Th5_1', 'Th5_2', 'W12', 'W3_1', 'W3_2', 'W4', 'W5_1', 'W5_2']
         self.kamoku = kamoku
         self.kamoku_combo = QComboBox()
         self.kamoku_combo.setFont(QFont('メイリオ',20))

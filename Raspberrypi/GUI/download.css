@@ -8,7 +8,7 @@
     margin-right: 20px;
     margin-left: 20px;
     background-color: white;
-    background-image: url(download.png);
+    background-image: url(images/download.png);
     background-repeat:  no-repeat; 
     background-position: right;
     
@@ -28,7 +28,7 @@
 }
 
 #btn{
-    background-image: url(dwnbtn.png) ;
+    background-image: url(images/dwnbtn.png) ;
     background-repeat:  no-repeat; 
     background-position: right;
     border-radius:30%;
@@ -43,7 +43,7 @@
 QComboBox::drop-down {border: 0px;}
 
 QComboBox::down-arrow {
-    image: url(arrow.png);
+    image: url(images/arrow.png);
     padding:0% 50% 0% 0%;
     width: 200%;
     height: 200%;

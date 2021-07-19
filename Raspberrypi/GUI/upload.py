@@ -42,7 +42,18 @@ class uploadWindow(QWidget):
         self.count_combobox.setSizePolicy(QSizePolicy.Preferred,QSizePolicy.Preferred)
 
         # 講義のコンボボックスの選択肢を追加
-        self.kougi_combobox.addItems(['F1','F2','F3','F4','F5','M1','M2','M3','M4','M5'])
+        try:
+            with open(os.path.abspath(f'../data/kamoku.csv'), 'r', encoding='utf-8') as f:
+                import csv
+                reader = csv.reader(f)
+                next(reader)
+                kamoku = [row [0] for row in reader]
+        except:
+            import traceback
+            traceback.print_exc()
+            kamoku = ['F1', 'F2', 'F3', 'F4_1', 'F4_2', 'M1', 'M2', 'M3', 'M4', 'T2', 'T3_1', 'T3_2', 'T4', 'T5', 'Th2', 'Th34',
+         'Th5_1', 'Th5_2', 'W12', 'W3_1', 'W3_2', 'W4', 'W5_1', 'W5_2']
+        self.kougi_combobox.addItems(kamoku)
         # 講義回数のコンボボックスの選択肢を追加
         self.count_combobox.addItems(['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15'])
 
@@ -97,7 +108,7 @@ class uploadWindow(QWidget):
     #コンボボックスから参照してファイルをアップロードする
     def upload_risyusya_list(self):
         flag = True
-        flag = self.post()
+        flag = post(self.count_combobox.currentText(),self.kougi_combobox.currentText())
 
         # アップロード成功時の処理
         if flag:
