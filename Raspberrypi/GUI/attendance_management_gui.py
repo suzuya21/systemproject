@@ -31,7 +31,11 @@ class MainWindow(QMainWindow):
         self.start_widget.clicked_signal.connect(lambda x,y:self.change(x,y))
         #self.setCentralWidget(self.common)
         # self.start_widget.changeWidget.connect(lambda x,y:self.change(x,y))
-        self.status.hide
+        statuslabel = QLabel()
+        statuslabel.setTextInteractionFlags(Qt.LinksAccessibleByMouse)
+        statuslabel.setOpenExternalLinks(True)
+        statuslabel.setText('<a href="table.html">科目ID，科目名対応表</a>')
+        self.status.addWidget(statuslabel)
         self.resize(800,500)
         # self.start_widget.setFixedSize(800,500)
         # self.start_widget.setGraphicsEffect(ShadowEffect(self))
