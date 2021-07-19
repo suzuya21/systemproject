@@ -124,7 +124,7 @@ if __name__ == '__main__':
     ex = uploadWindow()
     
     #cssの読み込み
-    with open('upload.css', 'r') as f:
+    with open('css/upload.css', 'r') as f:
         css = f.read()
         app.setStyleSheet(css)
 
