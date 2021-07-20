@@ -27,7 +27,7 @@ class StartWidget(QWidget):
 
         # 科目コンボボックス
         try:
-            with open(os.path.abspath(f'../data/kamoku.csv'), 'r', encoding='utf-8') as f:
+            with open(os.path.abspath(f'kamoku.csv'), 'r', encoding='utf-8') as f:
                 import csv
                 reader = csv.reader(f)
                 next(reader)
