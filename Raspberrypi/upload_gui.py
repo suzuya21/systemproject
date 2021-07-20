@@ -1,3 +1,7 @@
+"""
+アップロード画面
+他のチームメンバーに作成していただいたので必要なくなった
+"""
 import sys
 from PySide2.QtWidgets import *
 from PySide2.QtGui import *

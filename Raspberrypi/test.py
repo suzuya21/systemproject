@@ -1,3 +1,6 @@
+"""
+mysql接続テスト
+"""
 import mysql.connector as mydb
 import time
 

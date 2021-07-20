@@ -1,3 +1,7 @@
+"""
+出席管理クラス
+他のチームメンバーが作成したものを使用するため必要なくなった
+"""
 import csv
 import time_compare
 from enum import Enum,auto

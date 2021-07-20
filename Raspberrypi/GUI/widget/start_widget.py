@@ -1,3 +1,6 @@
+"""
+出席管理スタート画面
+"""
 import os.path
 
 from PySide2.QtWidgets import *

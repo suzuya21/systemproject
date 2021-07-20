@@ -1,3 +1,8 @@
+"""
+出席管理（内部処理）
+生成した出席データを読み取り，出席情報を書き込む
+Team4Project.pyの処理をThread継承クラスで書き直したもの
+"""
 import os
 import sys
 import threading
