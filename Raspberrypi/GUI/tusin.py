@@ -11,7 +11,9 @@ from GenerateInformation import generate
 # 多分動く getのみのスクリプトは動いてた
 def get_risyudata(kamoku): # kamokuは科目IDでstr型
     dir_path = "../data/input"
+    output_dir_path = "../data/output" # おまけでoutputもつくっておく
     os.makedirs(dir_path, exist_ok=True)
+    os.makedirs(output_dir_path, exist_ok=True)
     get_url = "http://192.168.1.17/csv/?kamoku="+kamoku
     try:
         url = requests.get(get_url,timeout=3.0)
