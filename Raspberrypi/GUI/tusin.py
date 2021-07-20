@@ -55,19 +55,24 @@ def get_risyudata(kamoku): # kamokuは科目IDでstr型
 # データ1パターンは動いた
 # 謎だけど動く(はず)
 def post(kaisu,kamoku): # kaisuはint型 kamokuは科目IDでstr型
-    open_name = "../data/output/" + kamoku + "_" + str(kaisu) + ".csv"
-    df_names = pd.read_csv(open_name, names=('id', 'name', 'number','syusseki'))
-    df_names = df_names.drop(columns=['id','name'])
-    csv_read = df_names.to_dict(orient="index")
-    data = []
-    for n in range(len(csv_read)):
-        data.append(csv_read[n])
-    
-    jdata = {}
-    jdata["kaisu"] = kaisu
-    jdata["kamoku"] = kamoku
-    jdata["csv"] = data
-    print(jdata)
+    try:
+        open_name = "../data/output/" + kamoku + "_" + str(kaisu) + ".csv"
+        df_names = pd.read_csv(open_name, names=('id', 'name', 'number','syusseki'))
+        df_names = df_names.drop(columns=['id','name'])
+        csv_read = df_names.to_dict(orient="index")
+        data = []
+        for n in range(len(csv_read)):
+            data.append(csv_read[n])
+
+        jdata = {}
+        jdata["kaisu"] = kaisu
+        jdata["kamoku"] = kamoku
+        jdata["csv"] = data
+        print(jdata)
+    except:
+        import traceback
+        traceback.print_exc()
+        return False
     try:
         response = requests.post(
         'http://192.168.1.17/csv/',
