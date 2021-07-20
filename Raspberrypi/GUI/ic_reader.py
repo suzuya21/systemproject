@@ -1,3 +1,7 @@
+"""
+ICリーダー部分
+例のアレでカードリーダーが使用できなくなったのでいらなくなった
+"""
 import sys
 import threading
 import ctypes

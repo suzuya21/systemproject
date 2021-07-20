@@ -1,3 +1,6 @@
+"""
+出席管理画面
+"""
 import sys
 from PySide2.QtWidgets import *
 from PySide2.QtGui import *

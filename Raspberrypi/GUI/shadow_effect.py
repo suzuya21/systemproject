@@ -1,3 +1,6 @@
+"""
+ウィジェットに影を足すクラス
+"""
 from PySide2.QtWidgets import QGraphicsDropShadowEffect
 from PySide2.QtGui import QColor
 

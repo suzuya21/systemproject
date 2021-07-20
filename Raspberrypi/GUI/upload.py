@@ -1,3 +1,6 @@
+"""
+アップロード画面
+"""
 # PySide2のモジュールを読み込む
 import sys
 import os

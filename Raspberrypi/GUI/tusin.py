@@ -1,3 +1,7 @@
+"""
+ラズパイとの通信部分
+http://serverIP/csv
+"""
 import json
 import requests
 import csv
