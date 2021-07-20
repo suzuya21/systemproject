@@ -80,7 +80,11 @@ def post(kaisu,kamoku): # kaisuはint型 kamokuは科目IDでstr型
             #headers={'Content-Type': 'application/json'})
         # pprint.pprint(response.json())
         #resDatas = response.json()
-        return True
+        print('response:',response.status_code)
+        if response.status_code == 200:
+            os.remove(open_name)
+            return True
+        return False
     except:
         import traceback
         traceback.print_exc()
