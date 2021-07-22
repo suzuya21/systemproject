@@ -20,7 +20,7 @@ def generate(SubjectID, fileKisoku, fileIDm):
     #講義回ごとの正規分布の平均(mus)と標準偏差(sigmas)
     mus = [3, 5, 5, 7, 9, 10, 10, 10, 10, 10, 12, 10, 11, 8, 7]
     sigmas = [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10]
-    sigmas = [20 for i in range(15)]
+    #sigmas = [20 for i in range(15)]
 
     DataIDm = []
     ReadCsv.readCsv(fileIDm, DataIDm)

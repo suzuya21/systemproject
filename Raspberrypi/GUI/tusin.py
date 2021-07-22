@@ -12,13 +12,14 @@ from requests.exceptions import Timeout
 from GenerateInformation import generate
 
 
+serverIP = "192.168.1.17"
 # 多分動く getのみのスクリプトは動いてた
 def get_risyudata(kamoku): # kamokuは科目IDでstr型
     dir_path = "../data/input"
     output_dir_path = "../data/output" # おまけでoutputもつくっておく
     os.makedirs(dir_path, exist_ok=True)
     os.makedirs(output_dir_path, exist_ok=True)
-    get_url = "http://192.168.1.17/csv/?kamoku="+kamoku
+    get_url = 'http://' + serverIP + "/csv/?kamoku="+kamoku
     try:
         url = requests.get(get_url,timeout=3.0)
         text = url.text
@@ -75,7 +76,7 @@ def post(kaisu,kamoku): # kaisuはint型 kamokuは科目IDでstr型
         return False
     try:
         response = requests.post(
-        'http://192.168.1.17/csv/',
+            'http://' + serverIP + '/csv/',
             json=json.dumps(jdata),timeout=3.0)#,
             #headers={'Content-Type': 'application/json'})
         # pprint.pprint(response.json())
