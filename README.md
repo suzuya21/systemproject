@@ -53,9 +53,9 @@ sudo zypper install docker docker-compose # opensuse
 sudo pacman -S docker docker-compose # archlinux系
 ```
 windowsの場合
-https://www.docker.com/products/docker-desktop
+[docker公式サイト](https://www.docker.com/products/docker-desktop)
 からインストーラをダウンロードし，
-https://docs.docker.jp/docker-for-windows/wsl.html
+[docker公式ドキュメント](https://docs.docker.jp/docker-for-windows/wsl.html)
 を参考にインストールする
 
 ```sh
@@ -71,5 +71,5 @@ docker-compose up -d
 ```
 を実行することで，システムで使用するnginxとmariadbとphpmyadminのイメージがダウンロードされ，サーバが実行される．
 
-ブラウザでhttp://ipadress:5000/にアクセスし，ログインページが返されたら成功
+ブラウザで[http://ipadress:5000/](http://ipadress:5000/)にアクセスし，ログインページが返されたら成功
 
