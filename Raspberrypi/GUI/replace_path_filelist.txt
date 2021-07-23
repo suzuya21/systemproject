@@ -1,0 +1,10 @@
+GetStudentInfo.py o
+GenerateInformation.py o
+ReadCsv.py o
+CreateCsv.py o
+Tusin.py △  about o
+WriteCsv.py o
+attendance_management2.py o
+Download.py o
+upload.py o
+attendance_management_gui.py o

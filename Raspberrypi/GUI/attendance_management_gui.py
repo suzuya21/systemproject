@@ -432,7 +432,8 @@ if __name__ == '__main__':
     print(QStyleFactory.keys())
     ex = MainWindow()
     try:
-        with open('css/main.css', 'r', encoding='utf-8') as f:
+        csspath = os.path.join(os.path.dirname(__file__),'css/main.css')
+        with open(csspath, 'r', encoding='utf-8') as f:
             css = f.read()
             app.setStyleSheet(css)
     except:

@@ -13,7 +13,7 @@ import locale
 
 def generate(SubjectID, fileKisoku, fileIDm):
     SubjectInformation = []
-    ReadCsv.readCsv('TestSubject.csv', SubjectInformation)
+    ReadCsv.readCsv(os.path.join(os.path.dirname(__file__),'TestSubject.csv'), SubjectInformation)
     #ReadCsv.readCsv(f'{SubjectID}-Schedule.csv', SubjectInformation)
     print(SubjectInformation)
 
@@ -32,7 +32,9 @@ def generate(SubjectID, fileKisoku, fileIDm):
     m0 = int(SplitCharacter.split(DataKisoku[0][1])[1])
 
     #データを出力するディレクトリがなければ作成 
-    os.makedirs('../data/'+SubjectID, exist_ok=True)
+    datapath = os.path.join(os.path.dirname(os.path.dirname(__file__)),f'data/{SubjectID}')
+    print('datapath',datapath)
+    os.makedirs(datapath, exist_ok=True)
 
     #CSVファイルのヘッダ
     header = ['年月日'] + ['時刻'] + ['IDm']
@@ -74,7 +76,8 @@ def generate(SubjectID, fileKisoku, fileIDm):
     
         #ファイルに出力
         #FileOut = f'{SubjectID}/{SubjectID}-{str(Y)}{str(M).zfill(2)}{str(D).zfill(2)}.csv'
-        FileOut = f'../data/{SubjectID}/{SubjectID}-AttendanceList{i+1}.csv'
+        FileOut = os.path.join(datapath , f'{SubjectID}-AttendanceList{i+1}.csv')
+        print('FileOut',FileOut)
         with open(FileOut, 'w', encoding = "utf_8", newline = '') as outfile:
             writer = csv.writer(outfile)
             writer.writerow(header)
