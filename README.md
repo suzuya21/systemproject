@@ -84,5 +84,5 @@ docker-compose up -d --build
 ```
 を実行することで，システムで使用するnginxとmariadbとphpmyadminのイメージがダウンロードされ，サーバが実行される．
 
-ブラウザで[http://ipadress:5002/](http://ipadress:5002/)にアクセスし，ログインページが返されたら成功
+ブラウザで[http://*ipadress*:13431/](http://ipadress:13431/)にアクセスし，ログインページが返されたら成功
 
