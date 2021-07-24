@@ -1,4 +1,5 @@
 # systemproject
+# ラズパイGUI(クライアント)
 ## 下準備
 ラズパイのGUIを使うためにはまずPythonのライブラリをインストールする必要がある．
 Python,pipはすでにインストールされている前提として
@@ -46,11 +47,11 @@ ipconfig # Windows
 serverIP = '192.168.1.11'
 ```
 
-## サーバー利用方法
+# サーバ
 ~~実際はnginxのインストールとその設定が必要だが，簡単のためインストールは省略する．~~
 
 docker上ですべてを行う．
-### 必要なソフトウェア
+## 必要なソフトウェア
 - ~~python~~
 - ~~mariadb~~
 - ~~nginx~~
@@ -59,8 +60,8 @@ docker上ですべてを行う．
     - mariadbコンテナ
     - phpmyadminコンテナ
 
-### dockerのインストール
-#### Linuxの場合
+## dockerのインストール
+### Linuxの場合
 下記コマンドでだいたいインストールできるはず
 ```sh
 sudo apt install docker docker-compose # ubuntu,debian系
@@ -72,7 +73,7 @@ sudo pacman -S docker docker-compose # archlinux系
 systemctl start docker # docker有効化
 ```
 
-#### windowsの場合
+### windowsの場合
 [docker公式サイト](https://www.docker.com/products/docker-desktop)
 からインストーラをダウンロードし，
 [docker公式ドキュメント](https://docs.docker.jp/docker-for-windows/wsl.html)
@@ -89,6 +90,7 @@ docker-compose -v
 実行できていない場合は一度再起動して，再び上記コマンドを実行してみる．
 実行できない場合は要相談
 
+## サーバの実行方法
 ```sh
 docker-compose up -d --build
 ```
