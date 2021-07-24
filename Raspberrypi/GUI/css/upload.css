@@ -11,7 +11,7 @@
     margin-right: 20px;
     margin-left: 20px;
     background-color: white;
-    background-image: url(images/upload.png);
+    background-image: url(:/images/images/upload.png);
     background-repeat:  no-repeat; 
     background-position: right;
     
@@ -34,7 +34,7 @@
     border-radius:30%;
     color:black;
     background-color: white;
-    background-image: url(images/upbtn.png);
+    background-image: url(:/images/images/upbtn.png);
     background-repeat:  no-repeat; 
     background-position: right;
 }
@@ -46,7 +46,7 @@
 QComboBox::drop-down {border: 0px;}
 
 QComboBox::down-arrow {
-    image: url(images/arrow.png);
+    image: url(:/images/images/arrow.png);
     padding:0% 50% 0% 0%;
     width: 200%;
     height: 200%;

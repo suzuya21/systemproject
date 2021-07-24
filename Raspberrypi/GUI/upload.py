@@ -9,6 +9,7 @@ from PySide2.QtGui import *
 from PySide2.QtCore import *
 from tusin import post
 from shadow_effect import ShadowEffect
+import resource
 
 
 class uploadMainWindow(QMainWindow):
