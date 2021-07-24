@@ -13,6 +13,7 @@ from GenerateInformation import generate
 
 
 serverIP = "192.168.1.17"
+port = '13431'
 # 多分動く getのみのスクリプトは動いてた
 def get_risyudata(kamoku): # kamokuは科目IDでstr型
     datapath = os.path.join(os.path.dirname(os.path.dirname(__file__)),f'data/')
@@ -20,7 +21,7 @@ def get_risyudata(kamoku): # kamokuは科目IDでstr型
     output_dir_path = os.path.join(datapath,"output") # おまけでoutputもつくっておく
     os.makedirs(dir_path, exist_ok=True)
     os.makedirs(output_dir_path, exist_ok=True)
-    get_url = 'http://' + serverIP + "/csv/?kamoku="+kamoku
+    get_url = 'http://' + serverIP + ':' + port +"/csv/?kamoku="+kamoku
     try:
         url = requests.get(get_url,timeout=3.0)
         text = url.text
@@ -78,7 +79,7 @@ def post(kaisu,kamoku): # kaisuはint型 kamokuは科目IDでstr型
         return False
     try:
         response = requests.post(
-            'http://' + serverIP + '/csv/',
+            'http://' + serverIP + ':' + port + '/csv/',
             json=json.dumps(jdata),timeout=3.0)#,
             #headers={'Content-Type': 'application/json'})
         # pprint.pprint(response.json())
