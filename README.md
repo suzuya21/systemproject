@@ -60,17 +60,25 @@ docker上ですべてを行う．
     - phpmyadminコンテナ
 
 ### dockerのインストール
+#### Linuxの場合
+下記コマンドでだいたいインストールできるはず
 ```sh
 sudo apt install docker docker-compose # ubuntu,debian系
 sudo zypper install docker docker-compose # opensuse
 sudo pacman -S docker docker-compose # archlinux系
 ```
-windowsの場合
+インストール後に有効化する．
+```sh
+systemctl start docker # docker有効化
+```
+
+#### windowsの場合
 [docker公式サイト](https://www.docker.com/products/docker-desktop)
 からインストーラをダウンロードし，
 [docker公式ドキュメント](https://docs.docker.jp/docker-for-windows/wsl.html)
 を参考にインストールする
 
+インストールが完了したと思われる状態になったら，
 ```sh
 docker -v
 # -> Docker version 20.10.7, build f0df35096d
@@ -78,6 +86,8 @@ docker-compose -v
 # -> docker-compose version 1.29.2, build unknown
 ```
 を実行し，dockerとdocker-composeコマンドが利用可能なことを確認する．
+実行できていない場合は一度再起動して，再び上記コマンドを実行してみる．
+実行できない場合は要相談
 
 ```sh
 docker-compose up -d --build
