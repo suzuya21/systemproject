@@ -1,6 +1,8 @@
 #!/bin/bash
 # GUI実行用シェルスクリプト
-cd ~/work/systemproject/Raspberrypi/GUI
+#!/bin/sh
+cd `dirname $0`
+cd Raspberrypi/GUI
 if [ $1 -eq 1 ] ; then 
   python Download.py
 elif [ $1 -eq 2 ] ; then 

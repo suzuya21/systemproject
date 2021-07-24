@@ -9,6 +9,13 @@
 ### Linuxの場合
 ```shell
 # レポジトリのディレクトリへ移動してから
+sh ./install.sh # 必要なライブラリをインストール
+sh ./run.sh # 引数として 1(ダウンロード),2(アップロード),etc(出席管理画面)
+```
+### Windowsの場合
+```shell
+# レポジトリのディレクトリへ移動してから
+install.batをダブルクリック
 sh ./run.sh # 引数として 1(ダウンロード),2(アップロード),etc(出席管理画面)
 ```
 
@@ -23,7 +30,8 @@ python Download.py
 クライアントを使用する前にサーバのIPアドレスを設定する必要がある．
 サーバマシンから
 ```sh
-ifconfig
+ifconfig # Linux
+ipconfig # Windows
 ```
 を実行するなどして
 サーバのIPアドレスを確認し，
@@ -67,9 +75,9 @@ docker-compose -v
 を実行し，dockerとdocker-composeコマンドが利用可能なことを確認する．
 
 ```sh
-docker-compose up -d
+docker-compose up -d --build
 ```
 を実行することで，システムで使用するnginxとmariadbとphpmyadminのイメージがダウンロードされ，サーバが実行される．
 
-ブラウザで[http://ipadress:5000/](http://ipadress:5000/)にアクセスし，ログインページが返されたら成功
+ブラウザで[http://ipadress:5002/](http://ipadress:5002/)にアクセスし，ログインページが返されたら成功
 
