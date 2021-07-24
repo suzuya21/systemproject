@@ -24,7 +24,8 @@ class uploadMainWindow(QMainWindow):
         statuslabel = QLabel()
         statuslabel.setTextInteractionFlags(Qt.LinksAccessibleByMouse)
         statuslabel.setOpenExternalLinks(True)
-        statuslabel.setText('<a href="table.html">科目ID，科目名対応表</a>')
+        hrefurl = os.path.join(os.path.dirname(__file__),'table.html').replace('\\','/') # windowsだとpathがバックスラッシュになってhrefだと認識しない
+        statuslabel.setText('<a href="'+hrefurl+'">科目ID，科目名対応表</a>')
         self.status.addWidget(statuslabel)
 
 class uploadWindow(QWidget):
