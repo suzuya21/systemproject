@@ -10,20 +10,16 @@
 ```shell
 # レポジトリのディレクトリへ移動してから
 sh ./install.sh # 必要なライブラリをインストール
-sh ./run.sh # 引数として 1(ダウンロード),2(アップロード),etc(出席管理画面)
 ```
 ### Windowsの場合
 ```shell
 # レポジトリのディレクトリへ移動してから
 install.batをダブルクリック
-sh ./run.sh # 引数として 1(ダウンロード),2(アップロード),etc(出席管理画面)
 ```
 
 ### 他
 ```shell
-# RepositoryRoot はクローンしたレポジトリのパス
-cd $RepositoryRoot/Raspberrypi/GUI
-python Download.py
+python start.py
 ```
 
 ### 設定
