@@ -1,2 +1,2 @@
 cd /d "%~dp0"
-py start.py
+py -3 start.py
