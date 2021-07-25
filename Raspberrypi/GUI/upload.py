@@ -9,6 +9,7 @@ from PySide2.QtGui import *
 from PySide2.QtCore import *
 from tusin import post
 from shadow_effect import ShadowEffect
+import resource
 
 
 class uploadMainWindow(QMainWindow):
@@ -23,7 +24,8 @@ class uploadMainWindow(QMainWindow):
         statuslabel = QLabel()
         statuslabel.setTextInteractionFlags(Qt.LinksAccessibleByMouse)
         statuslabel.setOpenExternalLinks(True)
-        statuslabel.setText('<a href="table.html">科目ID，科目名対応表</a>')
+        hrefurl = os.path.join(os.path.dirname(__file__),'table.html').replace('\\','/') # windowsだとpathがバックスラッシュになってhrefだと認識しない
+        statuslabel.setText('<a href="'+hrefurl+'">科目ID，科目名対応表</a>')
         self.status.addWidget(statuslabel)
 
 class uploadWindow(QWidget):
@@ -60,7 +62,8 @@ class uploadWindow(QWidget):
 
         # 講義のコンボボックスの選択肢を追加
         try:
-            with open(os.path.abspath(f'kamoku.csv'), 'r', encoding='utf-8') as f:
+            #with open(os.path.abspath(f'kamoku.csv'), 'r', encoding='utf-8') as f:
+            with open(os.path.join(os.path.dirname(__file__),f'kamoku.csv'), 'r' ,encoding='utf-8') as f:
                 import csv
                 reader = csv.reader(f)
                 next(reader)
@@ -142,7 +145,8 @@ if __name__ == '__main__':
     ex = uploadMainWindow()
 
     #cssの読み込み
-    with open('css/upload.css', 'r') as f:
+    csspath = os.path.join(os.path.dirname(__file__),'css/upload.css')
+    with open(csspath, 'r') as f:
         css = f.read()
         app.setStyleSheet(css)
 

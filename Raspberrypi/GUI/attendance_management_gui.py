@@ -2,6 +2,7 @@
 出席管理画面
 """
 import sys
+import os
 from PySide2.QtWidgets import *
 from PySide2.QtGui import *
 from PySide2.QtCore import *
@@ -13,6 +14,7 @@ from widget.totalization_widget import TotalizationWidget
 from widget.clock_widget import ClockWidget
 from widget.syuketu_widget import SyussekiWidget
 from widget.start_widget import StartWidget
+import resource
 
 # ラズパイ公式7インチタッチパネル 800 x 480 60fps
 
@@ -37,7 +39,8 @@ class MainWindow(QMainWindow):
         statuslabel = QLabel()
         statuslabel.setTextInteractionFlags(Qt.LinksAccessibleByMouse)
         statuslabel.setOpenExternalLinks(True)
-        statuslabel.setText('<a href="table.html">科目ID，科目名対応表</a>')
+        hrefurl = os.path.join(os.path.dirname(__file__),'table.html').replace('\\','/') # windowsだとpathがバックスラッシュになってhrefだと認識しない
+        statuslabel.setText('<a href="'+hrefurl+'">科目ID，科目名対応表</a>')
         self.status.addWidget(statuslabel)
         self.resize(800,500)
         # self.start_widget.setFixedSize(800,500)
@@ -106,7 +109,7 @@ class MainWidget(QWidget):
     def initUI(self):
         # 上段
         # タイトルラベル
-        self.label = QLabel("<html>出席管理 <img src='images/fileio2.png'></html>")
+        self.label = QLabel("<html>出席管理 <img src=':/images/images/fileio2.png'></html>")
         self.label.setFont(QFont('メイリオ',30))
         self.label.setAlignment(Qt.AlignCenter|Qt.AlignVCenter)
         self.label.setObjectName('TitleLabel')
@@ -135,7 +138,7 @@ class MainWidget(QWidget):
 
         # 戻るボタン
         self.return_btn = QPushButton("戻る")
-        self.return_btn.setIcon(QPixmap("images/return.png"))
+        self.return_btn.setIcon(QPixmap(":images/images/return.png"))
         self.return_btn.setIconSize(QSize(60,60))
         self.return_btn.setGraphicsEffect(ShadowEffect(self))
         self.return_btn.setSizePolicy(QSizePolicy.Preferred,QSizePolicy.Preferred)
@@ -432,7 +435,8 @@ if __name__ == '__main__':
     print(QStyleFactory.keys())
     ex = MainWindow()
     try:
-        with open('css/main.css', 'r', encoding='utf-8') as f:
+        csspath = os.path.join(os.path.dirname(__file__),'css/main.css')
+        with open(csspath, 'r', encoding='utf-8') as f:
             css = f.read()
             app.setStyleSheet(css)
     except:

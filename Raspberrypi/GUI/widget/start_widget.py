@@ -7,6 +7,7 @@ from PySide2.QtWidgets import *
 from PySide2.QtGui import *
 from PySide2.QtCore import *
 from shadow_effect import ShadowEffect
+import resource
 
 # 科目と回数を選択する画面 attendance_manegement_gui.pyを実行して最初に表示される
 class StartWidget(QWidget):
@@ -18,7 +19,7 @@ class StartWidget(QWidget):
 
     def initUI(self):
         # タイトル
-        self.title_label = QLabel("<html>出席管理 <img src='images/fileio2.png'></html>")
+        self.title_label = QLabel("<html>出席管理 <img src=':/images/images/fileio2.png'></html>")
         self.title_label.setFont(QFont('メイリオ',30))
         self.title_label.setAlignment(Qt.AlignCenter|Qt.AlignVCenter)
         self.title_label.setObjectName('TitleLabel')
@@ -27,7 +28,7 @@ class StartWidget(QWidget):
 
         # 科目コンボボックス
         try:
-            with open(os.path.abspath(f'kamoku.csv'), 'r', encoding='utf-8') as f:
+            with open(os.path.join(os.path.dirname(os.path.dirname(__file__)),f'kamoku.csv'), 'r' ,encoding='utf-8') as f:
                 import csv
                 reader = csv.reader(f)
                 next(reader)
@@ -55,7 +56,7 @@ class StartWidget(QWidget):
             self.kaisu_combo.addItem(str(s))
         self.kaisu_combo.setSizePolicy(QSizePolicy.Preferred,QSizePolicy.Preferred)
         self.kaisu_combo.setGraphicsEffect(ShadowEffect(self))
-        self.kaisu_combo.setWindowIcon(QIcon(QPixmap('../images/return.png')))
+        self.kaisu_combo.setWindowIcon(QIcon(QPixmap(':/images/images/return.png')))
 
         # スタートボタン
         self.start_btn = QPushButton()

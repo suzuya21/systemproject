@@ -12,13 +12,16 @@ from requests.exceptions import Timeout
 from GenerateInformation import generate
 
 
+serverIP = "192.168.1.17"
+port = '13431'
 # 多分動く getのみのスクリプトは動いてた
 def get_risyudata(kamoku): # kamokuは科目IDでstr型
-    dir_path = "../data/input"
-    output_dir_path = "../data/output" # おまけでoutputもつくっておく
+    datapath = os.path.join(os.path.dirname(os.path.dirname(__file__)),f'data/')
+    dir_path = os.path.join(datapath,"input")
+    output_dir_path = os.path.join(datapath,"output") # おまけでoutputもつくっておく
     os.makedirs(dir_path, exist_ok=True)
     os.makedirs(output_dir_path, exist_ok=True)
-    get_url = "http://192.168.1.17/csv/?kamoku="+kamoku
+    get_url = 'http://' + serverIP + ':' + port +"/csv/?kamoku="+kamoku
     try:
         url = requests.get(get_url,timeout=3.0)
         text = url.text
@@ -42,7 +45,7 @@ def get_risyudata(kamoku): # kamokuは科目IDでstr型
         out_kisoku = dir_path + "/kisoku_" + kamoku + ".csv" 
         df_json.to_csv(out_kisoku, encoding='utf-8')
         print("ダウンロード・ファイル保存完了")
-        generate(kamoku, os.path.abspath(f'../data/input/kisoku_{kamoku}.csv'), os.path.abspath(f'../data/input/risyu_{kamoku}.csv'))
+        generate(kamoku, os.path.abspath(os.path.join(dir_path,f'kisoku_{kamoku}.csv')), os.path.abspath(os.path.join(dir_path,f'risyu_{kamoku}.csv')))
         return True
     except:
         import traceback
@@ -56,7 +59,8 @@ def get_risyudata(kamoku): # kamokuは科目IDでstr型
 # 謎だけど動く(はず)
 def post(kaisu,kamoku): # kaisuはint型 kamokuは科目IDでstr型
     try:
-        open_name = "../data/output/" + kamoku + "_" + str(kaisu) + ".csv"
+        datapath = os.path.join(os.path.dirname(os.path.dirname(__file__)),f'data/')
+        open_name = os.path.join(datapath,"output/" + kamoku + "_" + str(kaisu) + ".csv")
         df_names = pd.read_csv(open_name, names=('id', 'name', 'number','syusseki'))
         df_names = df_names.drop(columns=['id','name'])
         csv_read = df_names.to_dict(orient="index")
@@ -75,7 +79,7 @@ def post(kaisu,kamoku): # kaisuはint型 kamokuは科目IDでstr型
         return False
     try:
         response = requests.post(
-        'http://192.168.1.17/csv/',
+            'http://' + serverIP + ':' + port + '/csv/',
             json=json.dumps(jdata),timeout=3.0)#,
             #headers={'Content-Type': 'application/json'})
         # pprint.pprint(response.json())

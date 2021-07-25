@@ -21,14 +21,18 @@ def GSInfo(ID, Registerlist, SubjectID, Count):
         return 1
 
     #{Team4Project.SubjectID}-読み取り履歴{Team4Project.Count}.csvがなければ作成
-    if not os.path.isfile(f'../data/{SubjectID}/{SubjectID}-読み取り履歴{Count}.csv'):
+    history_path = os.path.join(os.path.dirname(os.path.dirname(__file__)),f'data/{SubjectID}/{SubjectID}-読み取り履歴{Count}.csv')
+    #if not os.path.isfile(f'../data/{SubjectID}/{SubjectID}-読み取り履歴{Count}.csv'):
+    if not os.path.isfile(history_path):
         print('ファイルを作成します.')
-        f = open(f'../data/{SubjectID}/{SubjectID}-読み取り履歴{Count}.csv', 'w', encoding = "utf_8", newline = '')
+        #f = open(f'../data/{SubjectID}/{SubjectID}-読み取り履歴{Count}.csv', 'w', encoding = "utf_8", newline = '')
+        f = open(history_path, 'w', encoding = "utf_8", newline = '')
         f.close
     
     #空のリストHに{Team4Project.SubjectID}-読み取り履歴{Team4Project.Count}.csvの中身を格納
     H = []
-    with open(f'../data/{SubjectID}/{SubjectID}-読み取り履歴{Count}.csv', 'r', encoding = 'utf_8') as file:
+    #with open(f'../data/{SubjectID}/{SubjectID}-読み取り履歴{Count}.csv', 'r', encoding = 'utf_8') as file:
+    with open(history_path, 'r', encoding = 'utf_8') as file:
         reader = csv.reader(file)
         for row in reader:
             H.append(row)
@@ -49,7 +53,8 @@ def GSInfo(ID, Registerlist, SubjectID, Count):
 
     #IDがまだ登録されていないときの処理
     #{Team4Project.SubjectID}-読み取り履歴{Team4Project.Count}.csvに登録されていないIDを書き込み
-    with open(f'../data/{SubjectID}/{SubjectID}-読み取り履歴{Count}.csv', 'a', encoding = 'utf_8', newline = '') as f:
+    #with open(f'../data/{SubjectID}/{SubjectID}-読み取り履歴{Count}.csv', 'a', encoding = 'utf_8', newline = '') as f:
+    with open(history_path, 'a', encoding = 'utf_8', newline = '') as f:
         writer = csv.writer(f)
         writer.writerow([ID])
         f.close
